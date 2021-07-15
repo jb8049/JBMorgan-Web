@@ -29,6 +29,55 @@
       <script src="/JBMorgan-Web-MVC/resources/js/bootstrap.bundle.min.js"></script>
       <script src="/JBMorgan-Web-MVC/resources/js/jquery-3.0.0.min.js"></script>
       <script src="/JBMorgan-Web-MVC/resources/js/custom.js"></script>
+      
+      
+      <script>
+       	function doRegister(){
+       		
+       		let r = document.registerForm
+       		
+       		if(r.id.value == '' ){
+       			
+       			alert('아이디를 입력하세요.')
+    			r.id.focus()
+    			return false
+       		}
+       		
+       		if(r.password.value ==''){
+       			
+       			alert('패스워드를 입력하세요.')
+       			r.password.focus()
+       			return false      				
+       			
+       		}
+       		
+			if(r.name.value ==''){
+       			
+       			alert('이름을 입력하세요.')
+       			r.name.focus()
+       			return false
+       		}
+			
+			if(r.phone.value ==''){
+       			
+       			alert('전화번호를 입력하세요.')
+       			r.phone.focus()
+       			return false
+       			
+       		}
+       		
+			if(r.email.value ==''){
+		
+				alert('이메일을 입력하세요.')
+				r.email.focus()
+				return false
+			}
+       			
+       		return true
+       	}
+      
+      
+      </script>
 
    </head>
    
@@ -52,18 +101,28 @@
             <div class="row ">
                <div class="col-md-8 offset-md-2">
                   <div class="titlepage text_align_left">
-                     <h2>로그인</h2>
+                     <h2>회원가입</h2>
                   </div>
-                  <form id="request" class="main_form">
+                  <form action="<%=request.getContextPath()%>/login/register.jb" id="request" class="main_form" 
+                  name="registerForm" onsubmit="return doRegister()">
                      <div class="row">
                         <div class="col-md-12">
-                           <input class="contactus" placeholder="id" type="text" name="id"> 
+                           <input class="contactus" placeholder="id" type="text" name="id">
                         </div>
                         <div class="col-md-12">
-                           <input class="contactus" placeholder="password" type="password" name="password">                          
+                           <input class="contactus" placeholder="password" type="password" name="password">                        
                         </div>
                         <div class="col-md-12">
-                           <button class="send_btn">로그인</button>
+                           <input class="contactus" placeholder="name" type="text" name="name">                          
+                        </div>
+                        <div class="col-md-12">
+                           <input class="contactus" placeholder="phone" type="text" name="phone">                          
+                        </div>
+                        <div class="col-md-12">
+                           <input class="contactus" placeholder="email" type="text" name="email">                          
+                        </div>
+                        <div class="col-md-12">
+                           <button class="send_btn">회원가입</button>
                         </div>
                      </div>
                   </form>

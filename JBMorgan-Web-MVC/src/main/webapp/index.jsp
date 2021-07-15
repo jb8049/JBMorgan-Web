@@ -60,7 +60,8 @@
                                     <h1>생겨요, 좋은 일  <br>J.B.Morgan Banking</h1>
                                     <p>J.B.Morgan Banking은 편리하고 간편한 서비스를 통해<br>당신에게 더 나은 하루를 선물합니다.
                                     </p>
-                                    <a class="read_more" href="<%= request.getContextPath()%>/login/login.jb">로그인</a><a class="read_more" href="contact.html">회원가입</a>
+                                    <a class="read_more" href="<%= request.getContextPath()%>/login/loginForm.jb">로그인</a>
+                                    <a class="read_more" href="<%= request.getContextPath()%>/login/registerForm.jb">회원가입</a>
                                  </div>
                               </div>
                            </div>
