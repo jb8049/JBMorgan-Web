@@ -9,8 +9,9 @@
   
 	  <init-param>
 	  	<param-name>propertyLocation</param-name>
-	  	<param-value>C:\\Users\\HP\\git\\JBMorgan-Web\\JBMorgan-Web-MVC\\bean.properties</param-value>
+	  	<param-value>C:\\Users\\Jin\\git\\JBMorgan-Web\\JBMorgan-Web-MVC\\bean.properties</param-value>
 	  </init-param>
+	  
   </servlet>
   
   <servlet-mapping>

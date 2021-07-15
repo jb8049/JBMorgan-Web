@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
-   
+<html lang="en">
+
    <head>
       <!-- basic -->
       <meta charset="utf-8">
@@ -33,52 +33,60 @@
    </head>
    
    <!-- body -->
-   <body class="main-layout">
+   <body class="main-layout inner_page">
       <!-- loader  -->
       <div class="loader_bg">
-         <div class="loader"><img src="resources/images/loading.gif" alt="" /></div>
+         <div class="loader"><img src="images/loading.gif" alt="" /></div>
       </div>
       <!-- end loader -->
       
       <!-- header -->
-      <header>
-			<jsp:include page="/include/topMenu.jsp" />
-      </header>
+      <header> 
+      		<jsp:include page="/include/topMenu.jsp" />
+	  </header>
       <!-- end header -->
-	   
-      <!-- start slider section -->
-      <div id="top_section" class=" banner_main">
+      
+      <!-- contact -->
+      <div class="contact">
          <div class="container">
-            <div class="row">
-               <div class="col-md-12">
-                  <div id="myCarousel" class="carousel slide" data-ride="carousel">
-                     <div class="carousel-inner">
-                        <div class="carousel-item active">
-                           <div class="container-fluid">
-                              <div class="carousel-caption relative">
-                                 <div class="bluid">
-                                    <h1>생겨요, 좋은 일  <br>J.B.Morgan Banking</h1>
-                                    <p>J.B.Morgan Banking은 편리하고 간편한 서비스를 통해<br>당신에게 더 나은 하루를 선물합니다.
-                                    </p>
-                                    <a class="read_more" href="<%= request.getContextPath()%>/login/login.jb">로그인</a><a class="read_more" href="contact.html">회원가입</a>
-                                 </div>
-                              </div>
-                           </div>
+            <div class="row ">
+               <div class="col-md-8 offset-md-2">
+                  <div class="titlepage text_align_left">
+                     <h2>회원가입</h2>
+                  </div>
+                  <form id="request" class="main_form">
+                     <div class="row">
+                        <div class="col-md-12">
+                           <input class="contactus" placeholder="id" type="text" name="id"> 
+                        </div>
+                        <div class="col-md-12">
+                           <input class="contactus" placeholder="password" type="password" name="password">                          
+                        </div>
+                        <div class="col-md-12">
+                           <input class="contactus" placeholder="name" type="text" name="name">                          
+                        </div>
+                        <div class="col-md-12">
+                           <input class="contactus" placeholder="phone" type="text" name="phone">                          
+                        </div>
+                        <div class="col-md-12">
+                           <input class="contactus" placeholder="email" type="text" name="email">                          
+                        </div>
+                        <div class="col-md-12">
+                           <button class="send_btn">회원가입</button>
                         </div>
                      </div>
-                  </div>
+                  </form>
                </div>
             </div>
          </div>
       </div>
-      <!-- end slider section -->
+      <!-- contact -->
       
       <!-- footer -->
       <footer>
-         <jsp:include page="/include/bottom.jsp" />
+          <jsp:include page="/include/bottom.jsp" />
       </footer>
       <!-- end footer -->
-      
       
    </body>
 </html>

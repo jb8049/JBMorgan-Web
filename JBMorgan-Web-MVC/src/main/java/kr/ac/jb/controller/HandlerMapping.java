@@ -30,7 +30,6 @@ public class HandlerMapping {
 			
 			Set<Object> keys = prop.keySet();
 			
-			
 			for(Object key : keys) {
 				
 				String calssName = prop.getProperty(key.toString());
