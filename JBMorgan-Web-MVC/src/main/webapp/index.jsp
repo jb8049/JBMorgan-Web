@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
    
@@ -60,8 +61,15 @@
                                     <h1>생겨요, 좋은 일  <br>J.B.Morgan Banking</h1>
                                     <p>J.B.Morgan Banking은 편리하고 간편한 서비스를 통해<br>당신에게 더 나은 하루를 선물합니다.
                                     </p>
-                                    <a class="read_more" href="<%= request.getContextPath()%>/login/loginForm.jb">로그인</a>
-                                    <a class="read_more" href="<%= request.getContextPath()%>/login/registerForm.jb">회원가입</a>
+                                    <c:if test="${empty userVO}">
+	                                    <a class="read_more" href="<%= request.getContextPath()%>/login/loginForm.jb">로그인</a>
+	                                    <a class="read_more" href="<%= request.getContextPath()%>/login/registerForm.jb">회원가입</a>
+                                    </c:if>
+                                    <c:if test="${not empty userVO}">
+                                    	<a class="read_more" href="<%= request.getContextPath()%>/login/loginForm.jb">계좌개설</a>
+	                                    <a class="read_more" href="<%= request.getContextPath()%>/bank/searchAccount.jb">계좌조회</a>
+                                    </c:if>
+                                    
                                  </div>
                               </div>
                            </div>

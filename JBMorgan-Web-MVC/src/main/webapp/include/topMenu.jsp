@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     
          <div class="header">
             <div class="container-fluid">
@@ -24,10 +25,7 @@
                                  <a class="nav-link" href="about.html">계좌개설</a>
                               </li>
                               <li class="nav-item">
-                                 <a class="nav-link" href="we_do.html">계좌조회</a>
-                              </li>
-                              <li class="nav-item">
-                                 <a class="nav-link" href="portfolio.html">계좌이체 </a>
+                                 <a class="nav-link" href="<%= request.getContextPath()%>/bank/searchAccount.jb">계좌조회</a>
                               </li>
                               <li class="nav-item">
                                  <a class="nav-link" href="contact.html">오픈뱅킹</a>
@@ -35,6 +33,17 @@
 							   <li class="nav-item">
                                  <a class="nav-link" href="contact.html">고객센터</a>
                               </li>
+                              <c:if test="${empty userVO}" >
+	                              <li class="nav-item">
+	                                 <a class="nav-link" href="<%= request.getContextPath()%>/login/loginForm.jb">로그인</a>
+	                              </li>
+                              </c:if>
+                              <c:if test="${ not empty userVO }">
+	                              <li class="nav-item">
+	                                  <a class="nav-link" href="<%= request.getContextPath()%>/logout/logout.jb">로그아웃</a>
+	                              </li>
+                              </c:if>
+                              
                            </ul>
                         </div>
                      </nav>
