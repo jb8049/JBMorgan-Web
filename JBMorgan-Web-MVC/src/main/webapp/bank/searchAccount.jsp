@@ -56,27 +56,23 @@
                      <h2>계좌조회</h2>
                   </div>
                      <div class="row">
-                        <div class="col-md-12">
-                           <table border=1px solid>
+                        <div class="col-md-12" align="center">
+                           <table border=1px solid width="300px">
                            		<tr>
                            			<th>계좌번호</th>
-                           			<th>계좌명</th>
-                           			<th>잔액</th>
+                           			<th width="80px">계좌명</th>
+                           			<th width="80px">잔액</th>
                            		</tr>
                            		
-                           		<c:forEach items="${accountList}" var="account">
+                           		<c:forEach items="${ accountList}" var="account">
                            			<tr>
-                           				<td><a href="<%= request.getContextPath()%>/bank/accountDetail.jb?acct_no='${ account.acct_no }'"><c:out value='${ account.acct_no }'/></a></td>	
+                           				<td><a href="<%= request.getContextPath()%>/bank/accountDetail.jb?acct_no=${ account.acct_no }"><c:out value='${ account.acct_no }'/></a></td>	
                            				<td><c:out value='${ account.acct_name }'  /></td>
                            				<td><c:out value='${ account.balance }'  /></td>	
                            			</tr>
                            		</c:forEach>
                            		
                            </table>                         
-                        </div>
-                        
-                        <div class="col-md-12">
-                           <button class="send_btn">버튼</button>
                         </div>
                      </div>
                </div>
