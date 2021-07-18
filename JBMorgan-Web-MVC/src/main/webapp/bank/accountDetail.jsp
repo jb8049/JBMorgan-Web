@@ -94,6 +94,7 @@
 								<th>거래시간</th>
 								<th>상대방 계좌</th>
 								<th>상대방 이름</th>
+								<th>유형</th>
 								<th>은행명</th>
 								<th>금액</th>
 								<th>잔액</th>
@@ -104,8 +105,23 @@
 									<td><c:out value="${ list.date }" /></td>
 									<td><c:out value="${ list.counterpartAccountNo }" /></td>
 									<td><c:out value="${ list.counterpartName }" /></td>
-									<td><c:out value="${ list.counterpartBank }" /></td>
-									<td><c:out value="${ list.amount }" /></td>
+									<td><c:out value="${ list.type }"/></td>
+									
+									<c:choose>
+										<c:when test="${ list.counterpartBank eq 100 }">
+											<td><c:out value="JBMorgan" /></td>
+										</c:when>
+										<c:when test="${ list.counterpartBank eq 200 }">
+											<td><c:out value="DonJo" /></td>
+										</c:when>
+										<c:when test="${ list.counterpartBank eq 300 }">
+											<td><c:out value="YG" /></td>
+										</c:when>
+										<c:when test="${ list.counterpartBank eq 400 }">
+											<td><c:out value="UpDown" /></td>
+										</c:when>
+									</c:choose>
+									<td><c:out value= "${ list.amount }" /></td>
 									<td><c:out value="${ list.balance }" /></td>
 								</tr>
 							</c:forEach>
@@ -156,18 +172,19 @@
 							<tr>
 								<th>송금할 은행</th>
 								<td>
-								<input type="radio" name="bank" value="100">JBMorgan
-								<input type="radio" name="bank" value="101">국민은행
-								<input type="radio" name="bank" value="102">하나은행
+								<input type="radio" name="bank" value="100" checked="checked">JBMorgan
+								<input type="radio" name="bank" value="200">DonJo
+								<input type="radio" name="bank" value="300">YG
+								<input type="radio" name="bank" value="400">UpDown
 								</td>
 							</tr>
 							<tr>
 								<th>상대방 계좌번호</th>
-								<td><input type="text" name="counterAcctNo"></td>
+								<td><input type="text" name="counterAcctNo" autocomplete="off"></td>
 							</tr>
 							<tr>
 								<th>송금할 금액</th>
-								<td><input type="text" name="transferBalance"></td>
+								<td><input type="text" name="transferBalance" autocomplete="off"></td>
 							</tr>
 							<tr>
 								<th>계좌 비밀번호</th>

@@ -9,6 +9,7 @@ public class accountVO {
 	private String id;
 	private String holder;
 	private String reg_date;
+	private int counterBalance;
 	
 	public String getAcct_no() {
 		return acct_no;
@@ -51,6 +52,12 @@ public class accountVO {
 	}
 	public void setReg_date(String reg_date) {
 		this.reg_date = reg_date;
+	}
+	public int getCounterBalance() {
+		return counterBalance;
+	}
+	public void setCounterBalance(int counterBalance) {
+		this.counterBalance = counterBalance;
 	}
 	
 	

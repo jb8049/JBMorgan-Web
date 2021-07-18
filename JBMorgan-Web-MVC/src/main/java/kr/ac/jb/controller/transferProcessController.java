@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import kr.ac.jb.account.accountDAO;
 import kr.ac.jb.account.accountVO;
+import kr.ac.jb.transaction.transactionDAO;
 import kr.ac.jb.transaction.transactionVO;
 
 public class transferProcessController implements Controller {
@@ -18,23 +19,24 @@ public class transferProcessController implements Controller {
 		// 내 계좌
 		String acctNo = request.getParameter("acct_no");
 		
-		// 은행종류
-		String bank = request.getParameter("bank");
+		// 상대방 은행 종류
+		int bank_code = Integer.parseInt(request.getParameter("bank"));
 		
 		// 상대방 계좌
 		String counterAcctNo = request.getParameter("counterAcctNo");
 		
-		accountDAO acctDao = new accountDAO();
-		accountVO counterAccount = acctDao.searchOneAccount(counterAcctNo);   // 상대방 계좌가 존재하는지 확인
+		accountDAO CounterAcctDao = new accountDAO();
+		accountVO counterAccount = CounterAcctDao.searchOneAccount(counterAcctNo);
 		
 		// 송금할 금액
 		int transferBalance = Integer.parseInt (request.getParameter("transferBalance"));
 		
-		// 계좌 비밀번호
+		// 본인 계좌 비밀번호
 		String acctPassword = request.getParameter("acctPassword"); 
 		
-		// 내 계좌의 상세 정보 중 pwd를 받아옴
-		accountVO myAccount = acctDao.searchOneAccount("acctNo");
+		accountDAO myAccountDAO = new accountDAO();
+		accountVO myAccount = myAccountDAO.searchOneAccount(acctNo);
+		
 		
 		if(counterAccount != null) {
 			
@@ -42,39 +44,40 @@ public class transferProcessController implements Controller {
 				
 				if(myAccount.getBalance() >= transferBalance) {
 					
-					// 모든 조건을 만족하는 경우에,
-					// counterAcctNo 상대방 계좌 accoutVO
-					// myAccount 내 계좌 accountVO
-					// 트랜잭션VO를 이용해서 account 테이블도 업데이트하면 될 듯?
-					
 					transactionVO transaction = new transactionVO();
 					
 					transaction.setAccountNo(acctNo);
 					transaction.setCounterpartAccountNo(counterAcctNo);
 					transaction.setAmount(transferBalance);
-					transaction.setCounterpartBank(bank);
-					// 상대방 이름?
+					transaction.setCounterpartBank(bank_code);
+					transaction.setHolder(myAccount.getHolder());
 					transaction.setCounterpartName(counterAccount.getHolder());
 					
-					acctDao.updateAccount(transaction);
+					myAccountDAO.updateAccount(transaction);
+					
+					// 업데이트 된 계좌들의 balance를 받아오는 VO
+					accountVO accountBalance = myAccountDAO.searchBalance(transaction);
+					
+					transaction.setBalance(accountBalance.getBalance());
+					transaction.setCounterBalance(accountBalance.getCounterBalance());
+					
+					
+					//거래내역 기록에 필요한 정보
+					// 내 계좌번호, 상대방 계좌번호, 이체할 잔액, 은행코드, 내 이름, 상대방 이름
+					// 내 계좌의 balacnce, 상대방 계좌 balance
+					
+					transactionDAO tDao = new transactionDAO();
+					
+					tDao.writeTransaction(transaction);
 					
 					
 					
-//					private int transactionNo;
-//					private String date;
-//					private int amount;
-
-
-//					private String counterpartName;
-
-
+					msg = "이체가 성공적으로 완료되었습니다.";
 					
 					
 				}else {
 					
 					msg = "계좌의 잔액이 부족합니다.";
-					
-					
 					
 					
 				}
@@ -86,15 +89,13 @@ public class transferProcessController implements Controller {
 			
 		}else {
 			
-			msg = "계좌가 존재하지 않습니다.";
+			msg = "이체할 계좌가 존재하지 않습니다.";
 			
 		}
 		
-		// 계좌 이체를 실패한 경우의 msg
 		request.setAttribute("msg", msg);
+		request.setAttribute("acctNo", acctNo);
 		
-		
-		// 이체 성공한 경우, 이체 실패한 경우
 		return "/bank/transferProcess.jsp";
 	}
 

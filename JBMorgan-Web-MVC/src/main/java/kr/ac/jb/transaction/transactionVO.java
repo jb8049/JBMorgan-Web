@@ -8,9 +8,11 @@ public class transactionVO {
 	private String accountNo;
 	private String counterpartAccountNo;
 	private String counterpartName;
-	private String counterpartBank;
+	private String holder;
+	private String type;
+	private int counterpartBank;
 	private int balance;
-
+	private int counterBalance;
 	
 	public int getTransactionNo() {
 		return transactionNo;
@@ -48,10 +50,11 @@ public class transactionVO {
 	public void setCounterpartName(String counterpartName) {
 		this.counterpartName = counterpartName;
 	}
-	public String getCounterpartBank() {
+	
+	public int getCounterpartBank() {
 		return counterpartBank;
 	}
-	public void setCounterpartBank(String counterpartBank) {
+	public void setCounterpartBank(int counterpartBank) {
 		this.counterpartBank = counterpartBank;
 	}
 	public int getBalance() {
@@ -60,7 +63,24 @@ public class transactionVO {
 	public void setBalance(int balance) {
 		this.balance = balance;
 	}
-	
+	public String getHolder() {
+		return holder;
+	}
+	public void setHolder(String holder) {
+		this.holder = holder;
+	}
+	public int getCounterBalance() {
+		return counterBalance;
+	}
+	public void setCounterBalance(int counterBalance) {
+		this.counterBalance = counterBalance;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
 	
 	
 	

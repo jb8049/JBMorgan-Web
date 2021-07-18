@@ -2,6 +2,63 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     
+    <!-- transfer Modal  -->
+
+	<div class="modal fade" id="agreeModal" role="dialog">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">오픈뱅킹 이용약관</h4>
+					<button type="button" class="close" data-dismiss="modal"
+						style="padding-top: 5px">×</button>
+				</div>
+				<div class="modal-body">
+
+					오픈뱅킹 동의여부
+					
+					<form action="<%= request.getContextPath()%>/bank/transferProcess.jb" method="post">
+						<input type="hidden" name=acct_no value="${ account.acct_no }">
+						
+						<table border=1px solid>
+							<tr>
+								<th>송금할 은행</th>
+								<td>
+								<input type="radio" name="bank" value="100" checked="checked">JBMorgan
+								<input type="radio" name="bank" value="200">DonJo
+								<input type="radio" name="bank" value="300">YG
+								<input type="radio" name="bank" value="400">UpDown
+								</td>
+							</tr>
+							<tr>
+								<th>상대방 계좌번호</th>
+								<td><input type="text" name="counterAcctNo" autocomplete="off"></td>
+							</tr>
+							<tr>
+								<th>송금할 금액</th>
+								<td><input type="text" name="transferBalance" autocomplete="off"></td>
+							</tr>
+							<tr>
+								<th>계좌 비밀번호</th>
+								<td><input type="password" name="acctPassword"></td>
+							</tr>
+						</table>
+						<div class="modal-footer" style="margin-top: 75px">
+							<input type="submit" class="btn btn-default" value="이체">
+							<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+						</div>
+					</form>
+				</div>
+
+
+			</div>
+		</div>
+
+	</div>
+
+	<!-- openAgree Modal end  -->
+    
          <div class="header">
             <div class="container-fluid">
                <div class="row d_flex">
@@ -28,7 +85,7 @@
                                  <a class="nav-link" href="<%= request.getContextPath()%>/bank/searchAccount.jb">계좌조회</a>
                               </li>
                               <li class="nav-item">
-                                 <a class="nav-link" href="contact.html">오픈뱅킹</a>
+                                 <a class="nav-link" href="#">오픈뱅킹</a>
                               </li>
 							   <li class="nav-item">
                                  <a class="nav-link" href="contact.html">고객센터</a>
