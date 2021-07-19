@@ -24,7 +24,7 @@
       <link rel="stylesheet" href="/JBMorgan-Web-MVC/resources/css/responsive.css">
       <!-- awesome fontfamily -->
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-   	
+   		
    	  <!-- Javascript files-->
       <script src="/JBMorgan-Web-MVC/resources/js/jquery.min.js"></script>
       <script src="/JBMorgan-Web-MVC/resources/js/bootstrap.bundle.min.js"></script>

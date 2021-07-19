@@ -43,7 +43,7 @@ public class transactionDAO {
 				   transaction.setCounterpartAccountNo(rs.getString("COUNTERPART_ACCT_NO"));
 				   transaction.setCounterpartName(rs.getString("COUNTERPART"));
 				   transaction.setType(rs.getString("TYPE"));
-				   transaction.setCounterpartBank(rs.getInt("COUNTERPART_BANK"));
+				   transaction.setCounterpartBank(rs.getString("COUNTERPART_BANK"));
 				   transaction.setBalance(rs.getInt("BALANCE"));
 				   transaction.setAccountNo(rs.getString("ACCT_NO"));
 				   transaction.setDate(rs.getString("TRANSACTION_DATE"));
@@ -93,7 +93,7 @@ public class transactionDAO {
 			mySqlPstmt.setInt(1, transaction.getAmount());
 			mySqlPstmt.setString(2, transaction.getCounterpartAccountNo());
 			mySqlPstmt.setString(3, transaction.getCounterpartName());
-			mySqlPstmt.setInt(4, transaction.getCounterpartBank());
+			mySqlPstmt.setString(4, transaction.getCounterpartBank());
 			mySqlPstmt.setInt(5, transaction.getBalance());
 			mySqlPstmt.setString(6, transaction.getAccountNo());
 				
@@ -102,12 +102,12 @@ public class transactionDAO {
 			counterSqlPstmt.setInt(1, transaction.getAmount());
 			counterSqlPstmt.setString(2, transaction.getAccountNo());
 			counterSqlPstmt.setString(3, transaction.getHolder());
-			counterSqlPstmt.setInt(4, transaction.getCounterpartBank());
+			counterSqlPstmt.setString(4, transaction.getCounterpartBank());
 			counterSqlPstmt.setInt(5, transaction.getCounterBalance());
 			counterSqlPstmt.setString(6, transaction.getCounterpartAccountNo());
 			
 			counterSqlPstmt.executeUpdate();
-				
+			
 		} catch (Exception e) {
 			
 			e.printStackTrace();

@@ -41,6 +41,7 @@ public class LoginProcessController implements Controller {
 			url = "redirect:/";
 			
 			HttpSession session = request.getSession();
+			// 로그인한 회원의 정보 userVO에 등록 (id, password, agreement)
 			session.setAttribute("userVO", userVO);
 		}
 		

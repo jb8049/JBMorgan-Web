@@ -20,7 +20,7 @@ public class transferProcessController implements Controller {
 		String acctNo = request.getParameter("acct_no");
 		
 		// 상대방 은행 종류
-		int bank_code = Integer.parseInt(request.getParameter("bank"));
+		String bankCode = request.getParameter("bankCode");
 		
 		// 상대방 계좌
 		String counterAcctNo = request.getParameter("counterAcctNo");
@@ -37,7 +37,6 @@ public class transferProcessController implements Controller {
 		accountDAO myAccountDAO = new accountDAO();
 		accountVO myAccount = myAccountDAO.searchOneAccount(acctNo);
 		
-		
 		if(counterAccount != null) {
 			
 			if(myAccount.getAcct_pwd().equals(acctPassword)) {
@@ -49,7 +48,7 @@ public class transferProcessController implements Controller {
 					transaction.setAccountNo(acctNo);
 					transaction.setCounterpartAccountNo(counterAcctNo);
 					transaction.setAmount(transferBalance);
-					transaction.setCounterpartBank(bank_code);
+					transaction.setCounterpartBank(bankCode);
 					transaction.setHolder(myAccount.getHolder());
 					transaction.setCounterpartName(counterAccount.getHolder());
 					

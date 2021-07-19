@@ -10,7 +10,7 @@ public class transactionVO {
 	private String counterpartName;
 	private String holder;
 	private String type;
-	private int counterpartBank;
+	private String counterpartBank;
 	private int balance;
 	private int counterBalance;
 	
@@ -51,10 +51,10 @@ public class transactionVO {
 		this.counterpartName = counterpartName;
 	}
 	
-	public int getCounterpartBank() {
+	public String getCounterpartBank() {
 		return counterpartBank;
 	}
-	public void setCounterpartBank(int counterpartBank) {
+	public void setCounterpartBank(String counterpartBank) {
 		this.counterpartBank = counterpartBank;
 	}
 	public int getBalance() {

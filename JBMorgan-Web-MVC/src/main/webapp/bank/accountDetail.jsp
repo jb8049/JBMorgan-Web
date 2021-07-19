@@ -108,16 +108,16 @@
 									<td><c:out value="${ list.type }"/></td>
 									
 									<c:choose>
-										<c:when test="${ list.counterpartBank eq 100 }">
+										<c:when test="${ list.counterpartBank eq 'J' }">
 											<td><c:out value="JBMorgan" /></td>
 										</c:when>
-										<c:when test="${ list.counterpartBank eq 200 }">
+										<c:when test="${ list.counterpartBank eq 'D' }"> 
 											<td><c:out value="DonJo" /></td>
 										</c:when>
-										<c:when test="${ list.counterpartBank eq 300 }">
+										<c:when test="${ list.counterpartBank eq 'Y' }">
 											<td><c:out value="YG" /></td>
 										</c:when>
-										<c:when test="${ list.counterpartBank eq 400 }">
+										<c:when test="${ list.counterpartBank eq 'S' }">
 											<td><c:out value="UpDown" /></td>
 										</c:when>
 									</c:choose>
@@ -172,10 +172,10 @@
 							<tr>
 								<th>송금할 은행</th>
 								<td>
-								<input type="radio" name="bank" value="100" checked="checked">JBMorgan
-								<input type="radio" name="bank" value="200">DonJo
-								<input type="radio" name="bank" value="300">YG
-								<input type="radio" name="bank" value="400">UpDown
+								<input type="radio" name="bankCode" value="J" checked="checked">JBMorgan
+								<input type="radio" name="bankCode" value="D">DonJo
+								<input type="radio" name="bankCode" value="Y">YG
+								<input type="radio" name="bankCode" value="S">UpDown
 								</td>
 							</tr>
 							<tr>

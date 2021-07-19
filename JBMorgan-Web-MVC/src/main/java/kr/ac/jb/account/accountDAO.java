@@ -8,10 +8,16 @@ import java.util.List;
 
 import kr.ac.jb.transaction.transactionVO;
 import kr.ac.jb.util.ConnectionFactory;
+import kr.ac.jb.util.JDBCClose;
 
 public class accountDAO {
 
-	// 계좌 조회
+	/**
+	 * 계좌 조회
+	 * @param id
+	 * @return List<accountVO>
+	 */
+	
 	public List<accountVO> searchAllAccount(String id) {
 
 		List<accountVO> accountList = new ArrayList<>();
@@ -46,6 +52,12 @@ public class accountDAO {
 
 	}
 
+	/**
+	 * 상세 계좌 조회
+	 * @param no
+	 * @return accountVO
+	 */
+	
 	public accountVO searchOneAccount(String no) {
 
 		accountVO account = null;
@@ -86,40 +98,55 @@ public class accountDAO {
 	
 	/**
 	 * 내부 - 내부 이체했을 경우, 계좌 balance 업데이트
-	 * 
 	 * @param transaction
 	 */
 	
 	public void updateAccount(transactionVO transaction) {
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			
+			conn = new ConnectionFactory().getConnection();
+			conn.setAutoCommit(false);
+			
+			StringBuilder deposit_sql = new StringBuilder();
+			StringBuilder withdraw_sql = new StringBuilder();
+			
+			// 내 계좌
+			deposit_sql.append(" update bank_account set balance = balance - ? where acct_no = ? ");
 
-		StringBuilder deposit_sql = new StringBuilder();
-		StringBuilder withdraw_sql = new StringBuilder();
+			pstmt.setInt(1, transaction.getAmount());
+			pstmt.setString(2, transaction.getAccountNo());
+			
+			pstmt.executeUpdate();
+			
+			// 상대방 계좌
+			withdraw_sql.append(" update bank_account set balance = balance + ? where acct_no = ? ");
 
-		// 내 계좌
-		deposit_sql.append(" update bank_account set balance = balance - ? where acct_no = ? ");
+			pstmt.setInt(1, transaction.getAmount());
+			pstmt.setString(2, transaction.getCounterpartAccountNo());
 
-		// 상대방 계좌
-		withdraw_sql.append(" update bank_account set balance = balance + ? where acct_no = ? ");
-
-		try (Connection conn = new ConnectionFactory().getConnection();
-				PreparedStatement deposit_pstmt = conn.prepareStatement(deposit_sql.toString());
-				PreparedStatement withdraw_pstmt = conn.prepareStatement(withdraw_sql.toString());
-
-		) {
-
-			deposit_pstmt.setInt(1, transaction.getAmount());
-			deposit_pstmt.setString(2, transaction.getAccountNo());
-
-			withdraw_pstmt.setInt(1, transaction.getAmount());
-			withdraw_pstmt.setString(2, transaction.getCounterpartAccountNo());
-
-			deposit_pstmt.executeUpdate();
-			withdraw_pstmt.executeUpdate();
-
+			pstmt.executeUpdate();
+			
+			conn.commit();
+			
 		} catch (Exception e) {
+			
+			try {
+				
+				conn.rollback();
+				
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+			
 			e.printStackTrace();
+		}finally {
+			JDBCClose.close(conn, pstmt);
 		}
-
+		
 	}
 
 	/**

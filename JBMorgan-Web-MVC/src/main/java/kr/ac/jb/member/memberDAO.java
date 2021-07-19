@@ -88,14 +88,15 @@ public class memberDAO {
 	}
 	
 	/**
-	 * 오픈뱅킹 이용약관 동의
+	 * 오픈뱅킹 이용약관 동의 O, agreement 업데이트
 	 */
 	
 	public void openBankingAgree(String id) {
 		
+		
 		StringBuilder sql = new StringBuilder();
 		sql.append(" update bank_member set ");
-		sql.append(" agreement = 'Y' where member_id =? "); 
+		sql.append(" agreement = 'Y' where member_id =? ");
 		
 		try(
 				Connection conn = new ConnectionFactory().getConnection();
@@ -104,13 +105,59 @@ public class memberDAO {
 				) {
 			
 				pstmt.setString(1, id);
+				pstmt.executeUpdate(); 
+
+				/*
+				 * if(pstmt.executeUpdate() != 0 ) { bool = true; }
+				 */
 				
-				pstmt.executeUpdate();
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
+//		 return bool;
 	}
+	
+	/**
+	 * userVO session 최신화 
+	 * @param id
+	 * @return String
+	 */
+	public String agreeMember(String id) {
+		
+		String agree = "";
+		StringBuilder sql = new StringBuilder();
+		sql.append(" select agreement from bank_member where member_id =? ");
+ 		
+		try(
+				Connection conn = new ConnectionFactory().getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(sql.toString()); 
+				
+				) {
+			
+				pstmt.setString(1, id);
+				ResultSet rs = pstmt.executeQuery(); 
+				
+				if(rs.next()) {
+					
+					agree = rs.getString("agreement");
+					
+				}
+				
+				
+				
+				/*
+				 * if(pstmt.executeUpdate() != 0 ) { bool = true; }
+				 */
+				
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return agree;
+	}
+	
 	
 }
