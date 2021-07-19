@@ -44,6 +44,7 @@ public class LoginProcessController implements Controller {
 			session.setAttribute("userVO", userVO);
 		}
 		
+		
 		return url;
 	}
 

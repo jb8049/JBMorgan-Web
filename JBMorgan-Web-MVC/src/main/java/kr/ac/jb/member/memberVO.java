@@ -9,7 +9,7 @@ public class memberVO {
 	private String phone;
 	private String email;
 	private String member_flag;
-	private String Agreement ;
+	private String agreement ;
 	
 	public String getId() {
 		return id;
@@ -48,10 +48,10 @@ public class memberVO {
 		this.member_flag = member_flag;
 	}
 	public String getAgreement() {
-		return Agreement;
+		return agreement;
 	}
 	public void setAgreement(String agreement) {
-		Agreement = agreement;
+		this.agreement = agreement;
 	}
 	
 	

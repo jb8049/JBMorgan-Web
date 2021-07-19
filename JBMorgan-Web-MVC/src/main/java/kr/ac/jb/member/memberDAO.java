@@ -8,7 +8,10 @@ import kr.ac.jb.util.ConnectionFactory;
 
 public class memberDAO {
 	
-	//회원가입
+	/**
+	 * 회원가입
+	 * @param member
+	 */
 	public void register(memberVO member) {
 		
 		StringBuilder sql = new StringBuilder();
@@ -39,6 +42,11 @@ public class memberDAO {
 
 	}
 	
+	/**
+	 * login
+	 * @param member
+	 * @return userVO
+	 */
 	public memberVO login(memberVO member) {
 		
 		memberVO userVO = null;
@@ -77,6 +85,32 @@ public class memberDAO {
 		
 		
 		return userVO;
+	}
+	
+	/**
+	 * 오픈뱅킹 이용약관 동의
+	 */
+	
+	public void openBankingAgree(String id) {
+		
+		StringBuilder sql = new StringBuilder();
+		sql.append(" update bank_member set ");
+		sql.append(" agreement = 'Y' where member_id =? "); 
+		
+		try(
+				Connection conn = new ConnectionFactory().getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(sql.toString()); 
+				
+				) {
+			
+				pstmt.setString(1, id);
+				
+				pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 	
 }

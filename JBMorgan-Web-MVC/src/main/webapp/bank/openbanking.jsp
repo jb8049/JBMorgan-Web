@@ -53,7 +53,7 @@
             <div class="row ">
                <div class="col-md-8 offset-md-2">
                   <div class="titlepage text_align_left">
-                     <h2>계좌조회</h2>
+                     <h2>오픈뱅킹서비스</h2>
                   </div>
                      <div class="row">
                         <div class="col-md-12" align="center">

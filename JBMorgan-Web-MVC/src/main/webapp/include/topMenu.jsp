@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     
-    <!-- transfer Modal  -->
+    <!-- openBanking Modal  -->
 
 	<div class="modal fade" id="agreeModal" role="dialog">
 		<div class="modal-dialog">
@@ -14,41 +14,19 @@
 					<button type="button" class="close" data-dismiss="modal"
 						style="padding-top: 5px">×</button>
 				</div>
+				
 				<div class="modal-body">
 
-					오픈뱅킹 동의여부
-					
-					<form action="<%= request.getContextPath()%>/bank/transferProcess.jb" method="post">
-						<input type="hidden" name=acct_no value="${ account.acct_no }">
-						
-						<table border=1px solid>
-							<tr>
-								<th>송금할 은행</th>
-								<td>
-								<input type="radio" name="bank" value="100" checked="checked">JBMorgan
-								<input type="radio" name="bank" value="200">DonJo
-								<input type="radio" name="bank" value="300">YG
-								<input type="radio" name="bank" value="400">UpDown
-								</td>
-							</tr>
-							<tr>
-								<th>상대방 계좌번호</th>
-								<td><input type="text" name="counterAcctNo" autocomplete="off"></td>
-							</tr>
-							<tr>
-								<th>송금할 금액</th>
-								<td><input type="text" name="transferBalance" autocomplete="off"></td>
-							</tr>
-							<tr>
-								<th>계좌 비밀번호</th>
-								<td><input type="password" name="acctPassword"></td>
-							</tr>
-						</table>
-						<div class="modal-footer" style="margin-top: 75px">
-							<input type="submit" class="btn btn-default" value="이체">
-							<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+					<form action="<%=request.getContextPath() %>/bank/openbanking.jb" method="post">
+						<input type="hidden" name="id" value="${ userVO.id }">
+						오픈뱅킹 이용약관 동의하시겠습니까? <!-- form태그 밖에 두니까, ?id=+jb8049+이런 이상한 형태로 날아감..  -->
+			
+						<div class="modal-footer">
+							<input type="submit" class="btn btn-default" value="동의">
+							<button type="button" class="btn btn-default" data-dismiss="modal">동의하지 않음</button>
 						</div>
 					</form>
+					
 				</div>
 
 
@@ -84,9 +62,19 @@
                               <li class="nav-item">
                                  <a class="nav-link" href="<%= request.getContextPath()%>/bank/searchAccount.jb">계좌조회</a>
                               </li>
-                              <li class="nav-item">
-                                 <a class="nav-link" href="#">오픈뱅킹</a>
-                              </li>
+                           
+	                          <li class="nav-item">
+	                          	<c:choose>
+	                          		<c:when test="${ userVO.agreement eq 'N' }">
+	                          			<a class="nav-link" href="#" data-toggle="modal" data-target="#agreeModal">오픈뱅킹</a>
+	                          		</c:when>
+	                          		<c:otherwise>  <!-- 현재 로그인을 안한 사람도 기능에 들어갈 수 있어서..수정필요 -->
+	                          			<a class="nav-link" href="<%=request.getContextPath() %>/bank/openbanking.jb">오픈뱅킹</a>
+	                          		</c:otherwise>
+	                          	</c:choose>
+			                     	
+	                           </li>
+	                              
 							   <li class="nav-item">
                                  <a class="nav-link" href="contact.html">고객센터</a>
                               </li>

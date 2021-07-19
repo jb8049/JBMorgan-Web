@@ -94,6 +94,8 @@ public class transferProcessController implements Controller {
 		}
 		
 		request.setAttribute("msg", msg);
+		
+		// 다시 해당 계좌 상세로 돌아오기 위해
 		request.setAttribute("acctNo", acctNo);
 		
 		return "/bank/transferProcess.jsp";
