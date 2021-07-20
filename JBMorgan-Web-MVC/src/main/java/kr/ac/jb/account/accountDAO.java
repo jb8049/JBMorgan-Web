@@ -110,12 +110,14 @@ public class accountDAO {
 			
 			conn = new ConnectionFactory().getConnection();
 			conn.setAutoCommit(false);
-			
+
 			StringBuilder deposit_sql = new StringBuilder();
 			StringBuilder withdraw_sql = new StringBuilder();
 			
 			// 내 계좌
 			deposit_sql.append(" update bank_account set balance = balance - ? where acct_no = ? ");
+			
+			pstmt = conn.prepareStatement(deposit_sql.toString());
 
 			pstmt.setInt(1, transaction.getAmount());
 			pstmt.setString(2, transaction.getAccountNo());
@@ -124,7 +126,9 @@ public class accountDAO {
 			
 			// 상대방 계좌
 			withdraw_sql.append(" update bank_account set balance = balance + ? where acct_no = ? ");
-
+			
+			pstmt = conn.prepareStatement(withdraw_sql.toString());
+			
 			pstmt.setInt(1, transaction.getAmount());
 			pstmt.setString(2, transaction.getCounterpartAccountNo());
 

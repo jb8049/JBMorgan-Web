@@ -112,6 +112,10 @@
                         <div class="col-md-12">
                            <input class="contactus" placeholder="password" type="password" name="password">                        
                         </div>
+                        <span class="col-md-12">
+                           <input class="contactus" style="width: 50%; float: left" placeholder="SSN-Front" type="text" name="ssnf">
+                           <input class="contactus" style="width: 50%; float: left" placeholder="SSN-Back" type="password" name="ssnb">                
+                        </span>
                         <div class="col-md-12">
                            <input class="contactus" placeholder="name" type="text" name="name">                          
                         </div>

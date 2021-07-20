@@ -16,8 +16,8 @@ public class memberDAO {
 		
 		StringBuilder sql = new StringBuilder();
 		
-		sql.append(" insert into bank_member (MEMBER_ID,PASSWORD,NAME, PHONE, EMAIL) ");
-		sql.append(" VALUES(?,?,?,?,?) ");
+		sql.append(" insert into bank_member (MEMBER_ID,PASSWORD,NAME, PHONE, EMAIL, SSN) ");
+		sql.append(" VALUES(?,?,?,?,?,?) ");
 		
 		try(
 				Connection conn = new ConnectionFactory().getConnection();
@@ -32,6 +32,7 @@ public class memberDAO {
 				pstmt.setString(loc++, member.getName());
 				pstmt.setString(loc++, member.getPhone());
 				pstmt.setString(loc++, member.getEmail());
+				pstmt.setString(loc++, member.getSsn());
 				
 				pstmt.executeUpdate();
 			

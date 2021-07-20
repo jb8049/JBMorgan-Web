@@ -16,7 +16,11 @@ public class RegisterController implements Controller {
 		String password = request.getParameter("password");
 		String name = request.getParameter("name");
 		String phone = request.getParameter("phone");
+		String ssnf = request.getParameter("ssnf");
+		String ssnb = request.getParameter("ssnb");
 		String email = request.getParameter("email");
+		
+		String ssn = ssnf + ssnb;
 		
 		memberVO member = new memberVO();
 		
@@ -24,12 +28,11 @@ public class RegisterController implements Controller {
 		member.setPassword(password);
 		member.setName(name);
 		member.setPhone(phone);
+		member.setSsn(ssn);
 		member.setEmail(email);
 		
 		memberDAO dao = new memberDAO();
 		dao.register(member);
-		
-		
 		
 		return "redirect:/";  // 회원가입 후 forward할 필요없이, index.jsp로 sendRedirect
 	}

@@ -1,7 +1,41 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    
+ 
+<script>
+	
+	function docheck(no){
+		
+		<c:choose>
+			<c:when test="${ not empty userVO}">
+				
+				switch (no) {
+				  case 1: //계좌 개설
+				    location.href = '<%= request.getContextPath()%>/bank/searchAccount.jb'
+				    break;
+				  case 2: //계좌 조회
+					location.href = '<%= request.getContextPath()%>/bank/searchAccount.jb'
+				    break;
+				  case 3: //오픈 뱅킹
+                  	location.href = '<%= request.getContextPath()%>/bank/openbanking.jb'
+				  	break; 
+				  case 4: //고객 센터
+					location.href = '<%= request.getContextPath()%>/login/registerForm.jb'
+				  	break; 
+				}
+			</c:when>
+			<c:otherwise>
+			if(confirm('로그인이 필요한 서비스입니다\n로그인페이지로 이동하시겠습니까?'))
+				location.href = '<%= request.getContextPath()%>/login/loginForm.jb'
+			</c:otherwise>
+		</c:choose>
+		
+	}
+
+
+</script>
+
+
     <!-- openBanking Modal  -->
 
 	<div class="modal fade" id="agreeModal" role="dialog">
@@ -57,26 +91,25 @@
                         <div class="collapse navbar-collapse" id="navbarsExample04">
                            <ul class="navbar-nav mr-auto">
                               <li class="nav-item">
-                                 <a class="nav-link" href="about.html">계좌개설</a>
+                                 <a class="nav-link" href="javascript:docheck(1)">계좌개설</a>
                               </li>
                               <li class="nav-item">
-                                 <a class="nav-link" href="<%= request.getContextPath()%>/bank/searchAccount.jb">계좌조회</a>
+                              	<a class="nav-link" href="javascript:docheck(2)">계좌조회</a>
                               </li>
                            
 	                          <li class="nav-item">
 	                          	<c:choose>
-	                          		<c:when test="${ userVO.agreement eq 'N' }">
+	                          		<c:when test="${not empty userVO && userVO.agreement eq 'N' }">
 	                          			<a class="nav-link" href="#" data-toggle="modal" data-target="#agreeModal">오픈뱅킹</a>
 	                          		</c:when>
-	                          		<c:otherwise>  <!-- 현재 로그인을 안한 사람도 기능에 들어갈 수 있어서..수정필요 -->
-	                          			<a class="nav-link" href="<%=request.getContextPath() %>/bank/openbanking.jb">오픈뱅킹</a>
+	                          		<c:otherwise>
+	                          			<a class="nav-link" href="javascript:docheck(3)">오픈뱅킹</a>
 	                          		</c:otherwise>
 	                          	</c:choose>
-			                     	
 	                           </li>
 	                              
 							   <li class="nav-item">
-                                 <a class="nav-link" href="contact.html">고객센터</a>
+                                 <a class="nav-link" href="javascript:docheck(4)">고객센터</a>
                               </li>
                               <c:if test="${empty userVO}" >
 	                              <li class="nav-item">

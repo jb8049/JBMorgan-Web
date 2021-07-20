@@ -10,6 +10,8 @@ public class memberVO {
 	private String email;
 	private String member_flag;
 	private String agreement ;
+	private String ssn;
+	
 	
 	public String getId() {
 		return id;
@@ -53,6 +55,13 @@ public class memberVO {
 	public void setAgreement(String agreement) {
 		this.agreement = agreement;
 	}
+	public String getSsn() {
+		return ssn;
+	}
+	public void setSsn(String ssn) {
+		this.ssn = ssn;
+	}
+	
 	
 	
 	
