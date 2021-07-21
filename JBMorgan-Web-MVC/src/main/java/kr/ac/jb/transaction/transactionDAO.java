@@ -12,8 +12,7 @@ import kr.ac.jb.util.JDBCClose;
 public class transactionDAO {
 
 	/**
-	 * // 계좌 상세 모달창에 들어갈 계좌의 거래내역
-	 * 
+	 * 계좌 상세 모달창에 들어갈 계좌의 거래내역
 	 * @param acct_no
 	 * @return List<transactionVO>
 	 */
@@ -24,8 +23,9 @@ public class transactionDAO {
 
 		StringBuilder sql = new StringBuilder();
 		sql.append(" select TRANSACTION_NO, AMOUNT, COUNTERPART_ACCT_NO, COUNTERPART, TYPE, ");
-		sql.append(" COUNTERPART_BANK,BALANCE, ACCT_NO, TRANSACTION_DATE from bank_transaction ");
+		sql.append(" COUNTERPART_BANK, ACCT_NO, TRANSACTION_DATE from bank_transaction ");
 		sql.append(" WHERE ACCT_NO =? ");
+		sql.append(" ORDER BY TRANSACTION_DATE DESC ");
 
 		try (Connection conn = new ConnectionFactory().getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(sql.toString());) {
@@ -44,7 +44,6 @@ public class transactionDAO {
 				transaction.setCounterpartName(rs.getString("COUNTERPART"));
 				transaction.setType(rs.getString("TYPE"));
 				transaction.setCounterpartBank(rs.getString("COUNTERPART_BANK"));
-				transaction.setBalance(rs.getInt("BALANCE"));
 				transaction.setAccountNo(rs.getString("ACCT_NO"));
 				transaction.setDate(rs.getString("TRANSACTION_DATE"));
 
@@ -62,11 +61,11 @@ public class transactionDAO {
 
 	/**
 	 * 내부 - 내부 거래내역 기록 트랜잭션
-	 * 
-	 * @param transaction
+	 * 계좌 테이블 update, 거래내역 테이블 insert
+	 * @param transactionVO
 	 */
 
-	public void writeTransaction(transactionVO transaction) {
+	public void transfer(transactionVO transaction) {
 
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -74,38 +73,61 @@ public class transactionDAO {
 			try {
 			
 			conn = new ConnectionFactory().getConnection();
+			
+			//트랜잭션 실패 시 rollback을 위해 autoCommit False
 			conn.setAutoCommit(false);
 			
-			StringBuilder mySql = new StringBuilder();
-			StringBuilder counterSql = new StringBuilder();
+			StringBuilder withdraw_sql = new StringBuilder();
+			StringBuilder deposit_sql = new StringBuilder();
+			StringBuilder myTransactionSql = new StringBuilder();
+			StringBuilder counterTransactionSql = new StringBuilder();
 			
-			mySql.append(" INSERT INTO BANK_TRANSACTION(TRANSACTION_NO, AMOUNT, COUNTERPART_ACCT_NO, TYPE, ");
-			mySql.append(" COUNTERPART, COUNTERPART_BANK, BALANCE, ACCT_NO) ");
-			mySql.append(" VALUES(TRANSACTION_SEQ.NEXTVAL, ?, ?, '출금', ?, ?, ?, ?)");
+			// 내 계좌에서 발생한 출금
+			withdraw_sql.append(" update bank_account set balance = balance - ? where acct_no = ? ");
 			
-			pstmt = conn.prepareStatement(mySql.toString());
+			pstmt = conn.prepareStatement(withdraw_sql.toString());
+
+			pstmt.setInt(1, transaction.getAmount());
+			pstmt.setString(2, transaction.getAccountNo());
+			
+			pstmt.executeUpdate();
+			
+			// 상대방 계좌에 발생한 업데이트
+			deposit_sql.append(" update bank_account set balance = balance + ? where acct_no = ? ");
+			
+			pstmt = conn.prepareStatement(deposit_sql.toString());
+			
+			pstmt.setInt(1, transaction.getAmount());
+			pstmt.setString(2, transaction.getCounterpartAccountNo());
+
+			pstmt.executeUpdate();
+			
+			// 거래내역 테이블에 기록
+			myTransactionSql.append(" INSERT INTO BANK_TRANSACTION(TRANSACTION_NO, AMOUNT, COUNTERPART_ACCT_NO, TYPE, ");
+			myTransactionSql.append(" COUNTERPART, COUNTERPART_BANK, ACCT_NO) ");
+			myTransactionSql.append(" VALUES(TRANSACTION_SEQ.NEXTVAL, ?, ?, '출금', ?, ?, ?)");
+			
+			pstmt = conn.prepareStatement(myTransactionSql.toString());
 			
 			pstmt.setInt(1, transaction.getAmount());
 			pstmt.setString(2, transaction.getCounterpartAccountNo());
 			pstmt.setString(3, transaction.getCounterpartName());
 			pstmt.setString(4, transaction.getCounterpartBank());
-			pstmt.setInt(5, transaction.getBalance());
-			pstmt.setString(6, transaction.getAccountNo());
+			pstmt.setString(5, transaction.getAccountNo());
 			
 			pstmt.executeUpdate();
 			
-			counterSql.append(" INSERT INTO BANK_TRANSACTION(TRANSACTION_NO, AMOUNT, COUNTERPART_ACCT_NO, TYPE, ");
-			counterSql.append(" COUNTERPART, COUNTERPART_BANK, BALANCE, ACCT_NO) ");
-			counterSql.append(" VALUES(TRANSACTION_SEQ.NEXTVAL, ?, ?, '입금', ?, ?, ?, ?)");
+			counterTransactionSql.append(" INSERT INTO BANK_TRANSACTION(TRANSACTION_NO, AMOUNT, COUNTERPART_ACCT_NO, TYPE, ");
+			counterTransactionSql.append(" COUNTERPART, COUNTERPART_BANK, ACCT_NO) ");
+			counterTransactionSql.append(" VALUES(TRANSACTION_SEQ.NEXTVAL, ?, ?, '입금', ?, ?, ?)");
 			
-			pstmt = conn.prepareStatement(counterSql.toString());
+			pstmt = conn.prepareStatement(counterTransactionSql.toString());
 			
 			pstmt.setInt(1, transaction.getAmount());
 			pstmt.setString(2, transaction.getAccountNo());
 			pstmt.setString(3, transaction.getHolder());
 			pstmt.setString(4, transaction.getCounterpartBank());
-			pstmt.setInt(5, transaction.getCounterBalance());
-			pstmt.setString(6, transaction.getCounterpartAccountNo());
+			pstmt.setString(5, transaction.getCounterpartAccountNo());
 
 			pstmt.executeUpdate();
 

@@ -97,7 +97,6 @@
 								<th>유형</th>
 								<th>은행명</th>
 								<th>금액</th>
-								<th>잔액</th>
 							</tr>
 
 							<c:forEach items="${ transactionList }" var="list">
@@ -122,7 +121,6 @@
 										</c:when>
 									</c:choose>
 									<td><c:out value= "${ list.amount }" /></td>
-									<td><c:out value="${ list.balance }" /></td>
 								</tr>
 							</c:forEach>
 						</table>

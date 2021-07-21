@@ -35,13 +35,13 @@ public class transferProcessController implements Controller {
 		String acctPassword = request.getParameter("acctPassword"); 
 		
 		accountDAO myAccountDAO = new accountDAO();
-		accountVO myAccount = myAccountDAO.searchOneAccount(acctNo);
+		accountVO account = myAccountDAO.searchOneAccount(acctNo);
 		
 		if(counterAccount != null) {
 			
-			if(myAccount.getAcct_pwd().equals(acctPassword)) {
+			if(account.getAcct_pwd().equals(acctPassword)) {
 				
-				if(myAccount.getBalance() >= transferBalance) {
+				if(account.getBalance() >= transferBalance) {
 					
 					transactionVO transaction = new transactionVO();
 					
@@ -49,27 +49,27 @@ public class transferProcessController implements Controller {
 					transaction.setCounterpartAccountNo(counterAcctNo);
 					transaction.setAmount(transferBalance);
 					transaction.setCounterpartBank(bankCode);
-					transaction.setHolder(myAccount.getHolder());
+					transaction.setHolder(account.getHolder());
 					transaction.setCounterpartName(counterAccount.getHolder());
 					
-					myAccountDAO.updateAccount(transaction);
+//					트랜잭션 dao에서 계좌 테이블 update, 트랜잭션 테이블 insert
 					
-					// 업데이트 된 계좌들의 balance를 받아오는 VO
-					accountVO accountBalance = myAccountDAO.searchBalance(transaction);
+//					myAccountDAO.updateAccount(transaction);
 					
-					transaction.setBalance(accountBalance.getBalance());
-					transaction.setCounterBalance(accountBalance.getCounterBalance());
+					transactionDAO tDao = new transactionDAO();
+					tDao.transfer(transaction);
+					
+					
+//					업데이트 된 계좌들의 balance를 받아오는 VO
+//					accountVO accountBalance = myAccountDAO.searchBalance(transaction);
+//					
+//					transaction.setBalance(accountBalance.getBalance());
+//					transaction.setCounterBalance(accountBalance.getCounterBalance());
 					
 					
 					//거래내역 기록에 필요한 정보
 					// 내 계좌번호, 상대방 계좌번호, 이체할 잔액, 은행코드, 내 이름, 상대방 이름
 					// 내 계좌의 balacnce, 상대방 계좌 balance
-					
-					transactionDAO tDao = new transactionDAO();
-					
-					tDao.writeTransaction(transaction);
-					
-					
 					
 					msg = "이체가 성공적으로 완료되었습니다.";
 					
