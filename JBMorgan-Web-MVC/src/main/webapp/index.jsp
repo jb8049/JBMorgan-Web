@@ -30,7 +30,44 @@
       <script src="/JBMorgan-Web-MVC/resources/js/bootstrap.bundle.min.js"></script>
       <script src="/JBMorgan-Web-MVC/resources/js/jquery-3.0.0.min.js"></script>
       <script src="/JBMorgan-Web-MVC/resources/js/custom.js"></script>
-
+	
+	<!--카카오톡 로그인 -->
+	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+	
+	<script>
+	  	// bbe9ec6b57b56d8ef60c464ef2214a90 // 자바스크립트 카카오 key값
+	  	// 화면이 열리자마자~ 어떤 웹 어플리케이션이 연동될지 검증됨
+	  	window.Kakao.init("bbe9ec6b57b56d8ef60c464ef2214a90");
+	  	
+	  	function kakaoLogin() {
+	  		//문서에 보면 다나와있음
+	  		//로그인 버튼 누르면 실행됨
+	  		window.Kakao.Auth.login({
+	  			
+	  			scope : 'account_email, gender',
+	  			
+	  			//authObj 받아온 오브젝트 데이터
+	  			success: function(authObj){
+	  				console.log(authObj)
+	  				//로그인된 상태에서 유저정보들 받아오기
+	  				window.Kakao.API.request({
+	  				//로그인한 사용자의 정보를 받아옴
+	  					url:'/v2/user/me',
+	  					success : res => {
+	  						
+	  						const kakao_account = res.kakao_account
+	  						console.log(kakao_account);
+	  					}
+	  					
+	  				});
+	  				
+	  				
+	  			}
+	  		});
+	  		
+	  	}
+	  </script>
+		
    </head>
    
    <!-- body -->
@@ -63,6 +100,7 @@
                                     </p>
                                     <c:if test="${empty userVO}">
 	                                    <a class="read_more" href="<%= request.getContextPath()%>/login/loginForm.jb">로그인</a>
+	                                    <a class="read_more" href="javascript:kakaoLogin();"><img src="https://www.gb.go.kr/Main/Images/ko/member/certi_kakao_login.png" style="height: 100%"></a>
 	                                    <a class="read_more" href="<%= request.getContextPath()%>/login/registerForm.jb">회원가입</a>
                                     </c:if>
                                     <c:if test="${not empty userVO}">
