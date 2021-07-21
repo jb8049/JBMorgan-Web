@@ -32,51 +32,61 @@
       
       
       <script>
-       	function doRegister(){
-       		
-       		let r = document.registerForm
-       		
-       		if(r.id.value == '' ){
-       			
-       			alert('아이디를 입력하세요.')
-    			r.id.focus()
-    			return false
-       		}
-       		
-       		if(r.password.value ==''){
-       			
-       			alert('패스워드를 입력하세요.')
-       			r.password.focus()
-       			return false      				
-       			
-       		}
-       		
-			if(r.name.value ==''){
-       			
-       			alert('이름을 입력하세요.')
-       			r.name.focus()
-       			return false
-       		}
-			
-			if(r.phone.value ==''){
-       			
-       			alert('전화번호를 입력하세요.')
-       			r.phone.focus()
-       			return false
-       			
-       		}
-       		
-			if(r.email.value ==''){
-		
-				alert('이메일을 입력하세요.')
-				r.email.focus()
-				return false
-			}
-       			
-       		return true
-       	}
       
-      
+      		if('${ AccountMsg }')
+      			alert('${ AccountMsg }')
+      		
+      		function createAccountChk(){
+      		
+      			 let c = document.createAccountForm
+      			
+      			if(c.password.value == ''){
+      				
+      				alert('비밀번호를 입력하세요.')
+      				c.password.focus()
+      				return false
+      			}
+      			
+				if(c.phone.value =='' ){
+      				
+      				alert('전화번호를 입력하세요.')
+      				c.phone.focus()
+      				return false
+      			}
+				
+				
+				if(c.ssnf.value =='' ){
+      				
+					alert('주민번호 앞자리를 입력하세요.')
+      				c.ssnf.focus()
+      				return false
+      			}
+				
+				if(c.ssnb.value =='' ){
+      				
+      				alert('주민번호 뒷자리를 입력하세요.')
+      				c.ssnb.focus()
+      				return false
+      			}
+				
+				if(c.accountName.value =='' ){
+					
+      				alert('계좌명을 입력하세요.')
+      				c.accountName.focus()
+      				return false
+      			}
+				
+				if(c.accountPassword.value =='' ){
+					
+      				alert('계좌의 비밀번호를 입력하세요.')
+      				c.accountPassword.focus()
+      				return false
+      			}
+				
+      			return true
+      		}
+      			
+      			
       </script>
 
    </head>
@@ -101,32 +111,30 @@
             <div class="row ">
                <div class="col-md-8 offset-md-2">
                   <div class="titlepage text_align_left">
-                     <h2>회원가입</h2>
+                     <h2>계좌개설</h2>
                   </div>
-                  <form action="<%=request.getContextPath()%>/login/register.jb" id="request" class="main_form" 
-                  name="registerForm" onsubmit="return doRegister()">
+                  <form action="<%= request.getContextPath()%>/bank/createAccountProcess.jb" id="request" class="main_form" method="post" onsubmit="return createAccountChk()" name="createAccountForm">
+                  	<input type="hidden" name=id value='${userVO.id}'>
+                  	<input type="hidden" name=name value='${userVO.name}'>
                      <div class="row">
-                     	<div class="col-md-12">
-                           <input class="contactus" placeholder="id" type="text" name="id">                        
+                        <div class="col-md-12">
+                           <input class="contactus" placeholder="password" type="password" name="password">                          
                         </div>
                         <div class="col-md-12">
-                           <input class="contactus" placeholder="password" type="password" name="password">                        
+                           <input class="contactus" placeholder="phone" type="text" name="phone">                          
                         </div>
                         <span class="col-md-12">
                            <input class="contactus" style="width: 50%; float: left" placeholder="SSN-Front" type="text" name="ssnf">
                            <input class="contactus" style="width: 50%; float: left" placeholder="SSN-Back" type="password" name="ssnb">                
                         </span>
                         <div class="col-md-12">
-                           <input class="contactus" placeholder="name" type="text" name="name">                          
+                           <input class="contactus" placeholder="Account_Name" type="text" name="accountName">                          
                         </div>
                         <div class="col-md-12">
-                           <input class="contactus" placeholder="phone" type="text" name="phone">                          
+                           <input class="contactus" placeholder="Account_Password" type="password" name="accountPassword">                          
                         </div>
                         <div class="col-md-12">
-                           <input class="contactus" placeholder="email" type="text" name="email">                          
-                        </div>
-                        <div class="col-md-12">
-                           <button class="send_btn">회원가입</button>
+                           <button class="send_btn">계좌개설</button>  
                         </div>
                      </div>
                   </form>

@@ -196,5 +196,40 @@ public class accountDAO {
 		return accountBalance;
 
 	}
-
+	
+	/**
+	 * 계좌 개설 INSERT
+	 * @param account
+	 */
+	
+	public void createAccount(accountVO account) {
+		
+		StringBuilder sql = new StringBuilder();
+		
+		sql.append(" insert into bank_account(ACCT_NO, ACCT_PWD, ACCT_NAME, ");
+		sql.append(" BALANCE, MEMBER_ID, HOLDER ) "); 
+		sql.append(" values(to_char(sysdate, 'yyyymmdd')||to_char(systimestamp, 'ff6' ), ?, ? ");
+		sql.append(" , 0, ?, ?) ");
+ 		
+		try(
+				Connection conn = new ConnectionFactory().getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+				) {
+			
+				int loc = 1;
+				pstmt.setString(loc++, account.getAcct_pwd());
+				pstmt.setString(loc++, account.getAcct_name());
+				pstmt.setString(loc++, account.getId());
+				pstmt.setString(loc++, account.getHolder());
+				
+				pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+		}
+		
+		
+		
+	}
 }

@@ -11,7 +11,7 @@
 				
 				switch (no) {
 				  case 1: //계좌 개설
-				    location.href = '<%= request.getContextPath()%>/bank/searchAccount.jb'
+				    location.href = '<%= request.getContextPath()%>/bank/createAccountForm.jb'
 				    break;
 				  case 2: //계좌 조회
 					location.href = '<%= request.getContextPath()%>/bank/searchAccount.jb'

@@ -69,7 +69,6 @@ public class memberDAO {
 				ResultSet rs = pstmt.executeQuery();
 				
 				
-				
 				if(rs.next()) {
 					
 					userVO = new memberVO();
@@ -158,6 +157,45 @@ public class memberDAO {
 		}
 		
 		return agree;
+	}
+	
+	/**
+	 * 회원 상세 조회
+	 * @param id
+	 * @return
+	 */
+	public memberVO searchOneMember(String id) {
+		
+		memberVO member = new memberVO();
+		
+		StringBuilder sql = new StringBuilder();
+		
+		sql.append(" select member_id, password, name, phone, email, ssn ");
+		sql.append(" from bank_member where member_id=? ");
+		
+		try(
+				Connection conn = new ConnectionFactory().getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+				) {
+				
+				pstmt.setString(1, id);
+				
+				ResultSet rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					
+					member.setPassword(rs.getString("password"));
+					member.setSsn(rs.getString("ssn"));
+					member.setPhone(rs.getString("phone"));
+				}
+				
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return member;
 	}
 	
 	

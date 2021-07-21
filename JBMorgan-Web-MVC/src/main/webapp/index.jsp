@@ -66,7 +66,7 @@
 	                                    <a class="read_more" href="<%= request.getContextPath()%>/login/registerForm.jb">회원가입</a>
                                     </c:if>
                                     <c:if test="${not empty userVO}">
-                                    	<a class="read_more" href="<%= request.getContextPath()%>/login/loginForm.jb">계좌개설</a>
+                                    	<a class="read_more" href="<%= request.getContextPath()%>/bank/createAccountForm.jb">계좌개설</a>
 	                                    <a class="read_more" href="<%= request.getContextPath()%>/bank/searchAccount.jb">계좌조회</a>
                                     </c:if>
                                     
