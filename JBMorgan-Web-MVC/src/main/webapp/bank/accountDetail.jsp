@@ -30,8 +30,6 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
-
-
 <!-- Javascript files-->
 <script src="/JBMorgan-Web-MVC/resources/js/jquery.min.js"></script>
 <script src="/JBMorgan-Web-MVC/resources/js/bootstrap.bundle.min.js"></script>
@@ -45,8 +43,6 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-
 
 
 </head>
@@ -67,7 +63,7 @@
 	</header>
 	<!-- end header -->
 
-	<!-- histoty Modal  -->
+	<!-- 거래내역 Modal  -->
 
 	<div class="modal fade" id="historyModal" role="dialog">
 		<div class="modal-dialog">
@@ -133,9 +129,9 @@
 		</div>
 	</div>
 
-	<!-- history Modal end  -->
+	<!-- 거래내역 Modal end  -->
 
-	<!-- transfer Modal  -->
+	<!-- 이체 Modal  -->
 
 	<div class="modal fade" id="transferModal" role="dialog">
 		<div class="modal-dialog">
@@ -202,7 +198,7 @@
 
 	</div>
 
-	<!-- transfer Modal end  -->
+	<!-- 이체 Modal end  -->
 
 	<!-- section -->
 
@@ -236,8 +232,7 @@
 							</table>
 						</div>
 						<div class="col-md-12" align="center" style="margin-top: 10px">
-							<button type="button" data-toggle="modal"
-								data-target="#transferModal">이체</button>
+							<button type="button" data-toggle="modal" data-target="#transferModal">이체</button>
 							<button type="button" data-toggle="modal"
 								data-target="#historyModal">거래내역</button>
 						</div>

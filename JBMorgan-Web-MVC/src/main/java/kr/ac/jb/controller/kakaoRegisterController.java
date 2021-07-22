@@ -2,39 +2,44 @@ package kr.ac.jb.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import kr.ac.jb.member.memberDAO;
 import kr.ac.jb.member.memberVO;
 
-public class RegisterController implements Controller {
+public class kakaoRegisterController implements Controller {
 
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
+		HttpSession session = request.getSession() ;
+		String kakao_id = (String) session.getAttribute("kakao_id");
 		
-		String id = request.getParameter("id");
-		String password = request.getParameter("password");
-		String name = request.getParameter("name");
+		//System.out.println("통합회원 가입 후 넘어오는 id : " + kakao_id);
+		
+		String name = request.getParameter("name") ;
 		String phone = request.getParameter("phone");
+		String email = request.getParameter("email");
 		String ssnf = request.getParameter("ssnf");
 		String ssnb = request.getParameter("ssnb");
-		String email = request.getParameter("email");
 		
-		String ssn = ssnf + ssnb;
+		String ssn = ssnf + ssnb; //인서트 되는 SSN
 		
 		memberVO member = new memberVO();
 		
-		member.setId(id);
-		member.setPassword(password);
+		member.setId(kakao_id);
+		member.setPassword(null); //카카오 통합 회원의 비밀번호는 null이 들어가야함
 		member.setName(name);
 		member.setPhone(phone);
-		member.setSsn(ssn);
 		member.setEmail(email);
+		member.setSsn(ssn);
 		
 		memberDAO dao = new memberDAO();
+		
 		dao.register(member);
 		
-		return "redirect:/login/registerForm.jb";  // 회원가입 후 forward할 필요없이, index.jsp로 sendRedirect
+		
+		return "redirect:/";
 	}
 
 }

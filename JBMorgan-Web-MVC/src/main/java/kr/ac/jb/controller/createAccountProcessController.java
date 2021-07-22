@@ -27,10 +27,9 @@ public class createAccountProcessController implements Controller {
 		member = memberDao.searchOneMember(id);
 		
 		// 회원이 입력한 정보와 id로 조회한 DB에 저장된 정보와 비교해야함
-		String password = request.getParameter("password");
 		String phone = request.getParameter("phone");
 		String ssnf = request.getParameter("ssnf");
-		String ssnb = request.getParameter("ssnb"); 
+		String ssnb = request.getParameter("ssnb");
 		String ssn = ssnf + ssnb;
 		
 		// 계좌 테이블에 INSERT
@@ -38,8 +37,7 @@ public class createAccountProcessController implements Controller {
 		String accountPassword = request.getParameter("accountPassword");
 		String name = request.getParameter("name");
 		
-		if(member.getPassword().equals(password) &&
-				member.getPhone().equals(phone) && member.getSsn().equals(ssn)) {
+		if(member.getPhone().equals(phone) && member.getSsn().equals(ssn)) {
 			
 			accountVO account = new accountVO();
 			accountDAO accountDao =new accountDAO();

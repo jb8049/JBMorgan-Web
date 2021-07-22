@@ -40,12 +40,6 @@
       		
       			 let c = document.createAccountForm
       			
-      			if(c.password.value == ''){
-      				
-      				alert('비밀번호를 입력하세요.')
-      				c.password.focus()
-      				return false
-      			}
       			
 				if(c.phone.value =='' ){
       				
@@ -117,9 +111,6 @@
                   	<input type="hidden" name=id value='${userVO.id}'>
                   	<input type="hidden" name=name value='${userVO.name}'>
                      <div class="row">
-                        <div class="col-md-12">
-                           <input class="contactus" placeholder="password" type="password" name="password">                          
-                        </div>
                         <div class="col-md-12">
                            <input class="contactus" placeholder="phone" type="text" name="phone">                          
                         </div>

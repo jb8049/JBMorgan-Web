@@ -39,6 +39,14 @@ public class searchAccountController implements Controller {
 		//공유영역에 등록해서 searchAccount.jsp에서 정보를 조회할 수 있음
 		request.setAttribute("accountList", accountList);
 		
+		
+		// 계좌 이체 성공, 실패 msg
+		String msg = (String) session.getAttribute("msg");
+		
+		session.removeAttribute("msg");
+		request.setAttribute("msg", msg);
+		
+		
 		return "/bank/searchAccount.jsp";
 	}
 

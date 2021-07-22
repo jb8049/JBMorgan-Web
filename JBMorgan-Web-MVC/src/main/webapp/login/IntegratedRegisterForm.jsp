@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -32,11 +30,56 @@
       <script src="/JBMorgan-Web-MVC/resources/js/jquery-3.0.0.min.js"></script>
       <script src="/JBMorgan-Web-MVC/resources/js/custom.js"></script>
       
-      <script>
-      if('${ msg }')
-      			alert('${ msg }')
-      </script>
       
+      <script>
+       	function doRegister(){
+       		
+       		let r = document.registerForm
+       		
+			if(r.name.value ==''){
+       			
+       			alert('이름을 입력하세요.')
+       			r.name.focus()
+       			return false
+       		}
+			
+			if(r.phone.value ==''){
+       			
+       			alert('전화번호를 입력하세요.')
+       			r.phone.focus()
+       			return false
+       			
+       		}
+       		
+			if(r.email.value ==''){
+		
+				alert('이메일을 입력하세요.')
+				r.email.focus()
+				return false
+			}
+			
+			if(r.ssnf.value ==''){
+				
+				alert('주민번호 앞자리를 입력하세요.')
+				r.ssnf.focus()
+				return false
+				
+			}
+			
+			if(r.ssnb.value ==''){
+				
+				alert('주민번호 뒷자리를 입력하세요.')
+				r.ssnb.focus()
+				return false
+				
+			}
+			
+       		return true
+       	}
+      
+      
+      </script>
+
    </head>
    
    <!-- body -->
@@ -59,28 +102,29 @@
             <div class="row ">
                <div class="col-md-8 offset-md-2">
                   <div class="titlepage text_align_left">
-                     <h2>계좌조회</h2>
+                     <h2>통합 회원가입</h2>
                   </div>
+                  <form action="<%=request.getContextPath()%>/login/kakaoRegister.jb" id="request" class="main_form" name="registerForm" onsubmit="return doRegister()">
                      <div class="row">
-                        <div class="col-md-12" align="center">
-                           <table border=1px solid width="300px">
-                           		<tr>
-                           			<th>계좌번호</th>
-                           			<th width="80px">계좌명</th>
-                           			<th width="80px">잔액</th>
-                           		</tr>
-                           		
-                           		<c:forEach items="${ accountList }" var="account">
-                           			<tr>
-                           				<td><a href="<%= request.getContextPath()%>/bank/accountDetail.jb?acct_no=${ account.acct_no }"><c:out value='${ account.acct_no }'/></a></td>	
-                           				<td><c:out value='${ account.acct_name }'  /></td>
-                           				<td><c:out value='${ account.balance }'  /></td>	
-                           			</tr>
-                           		</c:forEach>
-                           		
-                           </table>                         
+                     	
+                        <div class="col-md-12">
+                           <input class="contactus" placeholder="name" type="text" name="name">                          
+                        </div>
+                        <div class="col-md-12">
+                           <input class="contactus" placeholder="phone" type="text" name="phone">                          
+                        </div>
+                        <div class="col-md-12">
+                           <input class="contactus" placeholder="email" type="text" name="email">                          
+                        </div>
+                        <span class="col-md-12">
+                           <input class="contactus" style="width: 50%; float: left" placeholder="SSN-Front" type="text" name="ssnf">
+                           <input class="contactus" style="width: 50%; float: left" placeholder="SSN-Back" type="password" name="ssnb">                
+                        </span>
+                        <div class="col-md-12">
+                           <button class="send_btn">회원가입</button>
                         </div>
                      </div>
+                  </form>
                </div>
             </div>
          </div>

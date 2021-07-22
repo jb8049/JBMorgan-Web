@@ -2,6 +2,7 @@ package kr.ac.jb.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import kr.ac.jb.account.accountDAO;
 import kr.ac.jb.account.accountVO;
@@ -13,7 +14,7 @@ public class transferProcessController implements Controller {
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
-		
+		String url =""; 
 		String msg= "";
 		
 		// 내 계좌
@@ -59,7 +60,6 @@ public class transferProcessController implements Controller {
 					transactionDAO tDao = new transactionDAO();
 					tDao.transfer(transaction);
 					
-					
 //					업데이트 된 계좌들의 balance를 받아오는 VO
 //					accountVO accountBalance = myAccountDAO.searchBalance(transaction);
 //					
@@ -71,33 +71,37 @@ public class transferProcessController implements Controller {
 					// 내 계좌번호, 상대방 계좌번호, 이체할 잔액, 은행코드, 내 이름, 상대방 이름
 					// 내 계좌의 balacnce, 상대방 계좌 balance
 					
-					msg = "이체가 성공적으로 완료되었습니다.";
-					
+					msg = "이체가 성공적으로 완료되었습니다." ;
+					url = "/bank/transferSuccess.jsp" ;
 					
 				}else {
 					
 					msg = "계좌의 잔액이 부족합니다.";
-					
-					
+					url = "/bank/searchAccount.jb";
 				}
 				
 			}else {
 				
 				msg = "계좌의 비밀번호가 틀렸습니다.";
+				url = "/bank/searchAccount.jb";
 			}
 			
 		}else {
 			
 			msg = "이체할 계좌가 존재하지 않습니다.";
+			url = "/bank/searchAccount.jb";
 			
 		}
 		
 		request.setAttribute("msg", msg);
 		
-		// 다시 해당 계좌 상세로 돌아오기 위해
-		request.setAttribute("acctNo", acctNo);
+		HttpSession session = request.getSession();
+		session.setAttribute("msg", msg);
+				
+		// 다시 해당 계좌 상세로 돌아오기 위해 썼지만, 필요없어짐
+		// request.setAttribute("acctNo", acctNo);
 		
-		return "/bank/transferProcess.jsp";
+		return url;
 	}
 
 }
