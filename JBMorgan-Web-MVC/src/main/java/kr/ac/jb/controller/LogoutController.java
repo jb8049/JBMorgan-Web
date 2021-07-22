@@ -12,6 +12,10 @@ public class LogoutController implements Controller {
 		HttpSession session = request.getSession();
 		session.invalidate();
 		
+		
+		
+
+		
 		return "redirect:/";
 	}
 

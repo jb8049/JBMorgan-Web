@@ -8,6 +8,7 @@
 	
 	$(document).ready(function(){
 		
+		
 		alert('이체가 완료되었습니다.')
 		
 		<c:if test="${empty userVO.password}">	
