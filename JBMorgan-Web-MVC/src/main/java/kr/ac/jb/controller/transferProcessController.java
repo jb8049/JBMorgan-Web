@@ -36,15 +36,18 @@ public class transferProcessController implements Controller {
 		String acctPassword = request.getParameter("acctPassword"); 
 		
 		accountDAO myAccountDAO = new accountDAO();
+		// 내 계좌에 대한 정보를 얻어옴
 		accountVO account = myAccountDAO.searchOneAccount(acctNo);
+		
+		
+		transactionVO transaction = new transactionVO();
+		
 		
 		if(counterAccount != null) {
 			
 			if(account.getAcct_pwd().equals(acctPassword)) {
 				
 				if(account.getBalance() >= transferBalance) {
-					
-					transactionVO transaction = new transactionVO();
 					
 					transaction.setAccountNo(acctNo);
 					transaction.setCounterpartAccountNo(counterAcctNo);
@@ -54,9 +57,6 @@ public class transferProcessController implements Controller {
 					transaction.setCounterpartName(counterAccount.getHolder());
 					
 //					트랜잭션 dao에서 계좌 테이블 update, 트랜잭션 테이블 insert
-					
-//					myAccountDAO.updateAccount(transaction);
-					
 					transactionDAO tDao = new transactionDAO();
 					tDao.transfer(transaction);
 					
@@ -71,8 +71,10 @@ public class transferProcessController implements Controller {
 					// 내 계좌번호, 상대방 계좌번호, 이체할 잔액, 은행코드, 내 이름, 상대방 이름
 					// 내 계좌의 balacnce, 상대방 계좌 balance
 					
-					msg = "이체가 성공적으로 완료되었습니다." ;
+					// msg = "이체가 성공적으로 완료되었습니다." ;
+					
 					url = "/bank/transferSuccess.jsp" ;
+					
 					
 				}else {
 					
@@ -93,11 +95,13 @@ public class transferProcessController implements Controller {
 			
 		}
 		
+		// 계좌 실패 msg, 성공하는 경우 출력하지 않음
 		request.setAttribute("msg", msg);
+		request.setAttribute("transaction", transaction);
 		
 		HttpSession session = request.getSession();
 		session.setAttribute("msg", msg);
-				
+		
 		// 다시 해당 계좌 상세로 돌아오기 위해 썼지만, 필요없어짐
 		// request.setAttribute("acctNo", acctNo);
 		

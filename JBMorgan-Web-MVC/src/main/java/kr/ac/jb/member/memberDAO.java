@@ -54,7 +54,7 @@ public class memberDAO {
 		
 		StringBuilder sql = new StringBuilder();
 		
-		sql.append(" select member_id, name, agreement from bank_member ");
+		sql.append(" select member_id, name, agreement, password from bank_member ");
 		sql.append(" where member_id=? and password=? ");
 		
 		try(
@@ -76,6 +76,7 @@ public class memberDAO {
 					userVO.setId(rs.getString("member_id"));
 					userVO.setName(rs.getString("name"));
 					userVO.setAgreement(rs.getString("agreement"));
+					userVO.setPassword(rs.getString("password"));
 				}
 					
 		} catch (Exception e) {
@@ -100,7 +101,7 @@ public class memberDAO {
 		
 		StringBuilder sql = new StringBuilder();
 		
-		sql.append(" select member_id, name, agreement from bank_member ");
+		sql.append(" select member_id, name, agreement, password from bank_member ");
 		sql.append(" where member_id=? ");
 		
 		try(
@@ -119,6 +120,7 @@ public class memberDAO {
 					userVO.setId(rs.getString("member_id"));
 					userVO.setName(rs.getString("name"));
 					userVO.setAgreement(rs.getString("agreement"));
+					userVO.setPassword(rs.getString("password"));
 				}
 					
 		} catch (Exception e) {

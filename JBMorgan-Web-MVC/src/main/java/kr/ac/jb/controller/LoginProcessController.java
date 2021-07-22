@@ -34,7 +34,7 @@ public class LoginProcessController implements Controller {
 			url = "redirect:/login/loginForm.jb";
 			
 			HttpSession session = request.getSession();
-			session.setAttribute("msg", msg); 
+			session.setAttribute("msg", msg);
 			
 		}else {
 			
