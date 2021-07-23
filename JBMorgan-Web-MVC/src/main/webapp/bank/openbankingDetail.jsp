@@ -113,7 +113,7 @@
 											<td><c:out value="YG" /></td>
 										</c:when>
 										<c:when test="${ list.counterpartBank eq 'S' }">
-											<td><c:out value="UpDown" /></td>
+											<td><c:out value="SeJin" /></td>
 										</c:when>
 									</c:choose>
 									<td><c:out value= "${ list.amount }" /></td>
@@ -216,6 +216,23 @@
 								<tr>
 									<th width="100px">계좌번호</th>
 									<td><c:out value="${ account.acct_no }" /></td>
+								</tr>
+								<tr>
+									<th>은행명</th>
+								<c:choose>
+									<c:when test="${param.bankCode eq 'J' }">
+										<td><c:out value="JBMorgan" /></td>
+									</c:when>
+									<c:when test="${param.bankCode eq 'D' }">
+										<td><c:out value="DonJo" /></td>
+									</c:when>
+									<c:when test="${param.bankCode eq 'S' }">
+										<td><c:out value="SeJin" /></td>
+									</c:when>
+									<c:when test="${param.bankCode eq 'Y' }">
+										<td><c:out value="YG" /></td>
+									</c:when>
+								</c:choose>
 								</tr>
 								<tr>
 									<th>계좌명</th>

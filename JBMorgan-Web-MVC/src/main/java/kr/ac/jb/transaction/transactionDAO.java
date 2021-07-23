@@ -16,7 +16,6 @@ public class transactionDAO {
 	 * @param acct_no
 	 * @return List<transactionVO>
 	 */
-
 	public List<transactionVO> searchJBMorganTransaction(String acct_no) {
 
 		List<transactionVO> transactionList = new ArrayList<>();
@@ -64,7 +63,6 @@ public class transactionDAO {
 	 * @param acct_no
 	 * @return List<transactionVO>
 	 */
-	
 	public List<transactionVO> searchDonJoTransaction(String acct_no) {
 		
 		List<transactionVO> transactionList = new ArrayList<>();
@@ -76,7 +74,6 @@ public class transactionDAO {
 		sql.append(" where u.id = a.id ) n ");
 		sql.append(" where  t.othacc = n.account and t.myacc=? ");
 		
-	
 		try (Connection conn = new ConnectionFactory().getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(sql.toString());) {
 

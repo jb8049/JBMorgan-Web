@@ -43,7 +43,7 @@ public class openbankingDetailController implements Controller {
 	    case "D":
 	    	 account = dao.searchDonJoAccount(acctNo);
 	    	 transactionList = tDao.searchDonJoTransaction(acctNo);
-	    	break;
+	    	 break;
 	    case "Y":
 	    	
 	    	break;
