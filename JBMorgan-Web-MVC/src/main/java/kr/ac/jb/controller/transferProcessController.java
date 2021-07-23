@@ -27,7 +27,7 @@ public class transferProcessController implements Controller {
 		String counterAcctNo = request.getParameter("counterAcctNo");
 		
 		accountDAO CounterAcctDao = new accountDAO();
-		accountVO counterAccount = CounterAcctDao.searchOneAccount(counterAcctNo);
+		accountVO counterAccount = CounterAcctDao.searchJBMorganAccount(counterAcctNo);
 		
 		// 송금할 금액
 		int transferBalance = Integer.parseInt (request.getParameter("transferBalance"));
@@ -37,7 +37,7 @@ public class transferProcessController implements Controller {
 		
 		accountDAO myAccountDAO = new accountDAO();
 		// 내 계좌에 대한 정보를 얻어옴
-		accountVO account = myAccountDAO.searchOneAccount(acctNo);
+		accountVO account = myAccountDAO.searchJBMorganAccount(acctNo);
 		
 		
 		transactionVO transaction = new transactionVO();

@@ -20,12 +20,12 @@ public class accountDetailController implements Controller {
 		
 		accountDAO dao = new accountDAO();
 		
-		account = dao.searchOneAccount(acct_no);
+		account = dao.searchJBMorganAccount(acct_no);
 		
 		// 모달창으로 detail 페이지에 거래내역을 보여주기 위해 해당 계좌의 거래내역을 불러옴		
 		transactionDAO tDao = new transactionDAO();
 		
-		List<transactionVO> transactionList = tDao.searchTransaction(acct_no);
+		List<transactionVO> transactionList = tDao.searchJBMorganTransaction(acct_no);
 		
 		request.setAttribute("transactionList", transactionList);
 		request.setAttribute("account", account);

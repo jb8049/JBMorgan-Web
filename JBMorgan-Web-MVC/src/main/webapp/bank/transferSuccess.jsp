@@ -36,10 +36,6 @@
 	// 카카오톡으로 로그인한 경우에만 가능함 (userVO의 pwd가 null일 때만 거래내역 공유가 가능함..))
 	/* 카카오토 메세지를 전송한 후에 이동해야함 */
 	
-	
-	
-	<%-- location.href = "<%= request.getContextPath()%>/bank/accountDetail.jb?acct_no=${acctNo}" --%>
-	
 </script>
 
 <script>

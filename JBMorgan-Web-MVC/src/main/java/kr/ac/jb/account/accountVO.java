@@ -10,6 +10,7 @@ public class accountVO {
 	private String holder;
 	private String reg_date;
 	private int counterBalance;
+	private String bankCode;
 	
 	public String getAcct_no() {
 		return acct_no;
@@ -59,7 +60,12 @@ public class accountVO {
 	public void setCounterBalance(int counterBalance) {
 		this.counterBalance = counterBalance;
 	}
-	
+	public String getBankCode() {
+		return bankCode;
+	}
+	public void setBankCode(String bankCode) {
+		this.bankCode = bankCode;
+	}
 	
 	
 	

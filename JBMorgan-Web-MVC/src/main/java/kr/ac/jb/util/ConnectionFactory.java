@@ -11,15 +11,15 @@ public Connection getConnection(){  //이렇게 연결하고 있는 객체를 �
 		
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-//			System.out.println("드라이버 로딩 성공");
+		//	System.out.println("드라이버 로딩 성공");
 			
 		// 2단계 url user password
-			String url ="jdbc:oracle:thin:@192.168.119.119:1521:dink";
-			String user="scott";
-			String password="tiger";
+			String url ="jdbc:oracle:thin:@192.168.217.202:1521/KOPODA";
+			String user="da2122";
+			String password="da22";
 			
 			conn = DriverManager.getConnection(url,user,password);
-//			System.out.println("DB연결 성공 : " + conn);
+		//	System.out.println("DB연결 성공 : " + conn);
 			
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -53,22 +53,34 @@
             <div class="row ">
                <div class="col-md-8 offset-md-2">
                   <div class="titlepage text_align_left">
-                     <h2>오픈뱅킹서비스</h2>
+                     <h2>오픈뱅킹 서비스</h2>
                   </div>
                      <div class="row">
                         <div class="col-md-12" align="center">
-                           <table border=1px solid width="300px">
+                           <table border=1px solid width="370px">
                            		<tr>
                            			<th>계좌번호</th>
+                           			<th width="80px">은행명</th>
                            			<th width="80px">계좌명</th>
-                           			<th width="80px">잔액</th>
+                           			<th width="90px">잔액</th>
                            		</tr>
                            		
-                           		<c:forEach items="${ accountList }" var="account">
+                           		<c:forEach items="${ openbankingAccountList }" var="openbankingAccount">
                            			<tr>
-                           				<td><a href="<%= request.getContextPath()%>/bank/accountDetail.jb?acct_no=${ account.acct_no }"><c:out value='${ account.acct_no }'/></a></td>	
-                           				<td><c:out value='${ account.acct_name }'  /></td>
-                           				<td><c:out value='${ account.balance }'  /></td>	
+                           				<td><a href="<%= request.getContextPath()%>/bank/openbankingDetail.jb?acctNo=${ openbankingAccount.acct_no }&bankCode=${openbankingAccount.bankCode}"><c:out value='${openbankingAccount.acct_no}'/></a></td>	
+                           			<c:choose>
+                           				<c:when test="${ openbankingAccount.bankCode eq 'J'}">
+                           					<td><c:out value="JBMorgan"/></td>
+                           				</c:when>
+                           				<c:when test="${ openbankingAccount.bankCode eq 'S'}">
+                           					<td><c:out value="SeJin"/></td>
+                           				</c:when >
+                           				<c:when test="${ openbankingAccount.bankCode eq 'D'}">
+                           					<td><c:out value="DonJo"/></td>
+                           				</c:when>
+                           			</c:choose>
+                           				<td><c:out value='${ openbankingAccount.acct_name }'  /></td>
+                           				<td><c:out value='${ openbankingAccount.balance }'  /></td>
                            			</tr>
                            		</c:forEach>
                            		

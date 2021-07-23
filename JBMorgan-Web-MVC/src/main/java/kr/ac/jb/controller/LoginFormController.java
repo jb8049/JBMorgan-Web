@@ -10,10 +10,10 @@ public class LoginFormController implements Controller {
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		HttpSession session = request.getSession();
-		String AccountMsg = (String) session.getAttribute("AccountMsg");
+		String msg = (String) session.getAttribute("msg");
 		
-		session.removeAttribute("AccountMsg");
-		request.setAttribute("AccountMsg", AccountMsg);
+		session.removeAttribute("msg");
+		request.setAttribute("msg", msg);
 		
 		
 		return "/login/loginForm.jsp" ;

@@ -12,12 +12,12 @@ import kr.ac.jb.util.JDBCClose;
 public class transactionDAO {
 
 	/**
-	 * 계좌 상세 모달창에 들어갈 계좌의 거래내역
+	 * 계좌 상세 모달창 JBMorgan 거래내역
 	 * @param acct_no
 	 * @return List<transactionVO>
 	 */
 
-	public List<transactionVO> searchTransaction(String acct_no) {
+	public List<transactionVO> searchJBMorganTransaction(String acct_no) {
 
 		List<transactionVO> transactionList = new ArrayList<>();
 
@@ -58,7 +58,57 @@ public class transactionDAO {
 		return transactionList;
 
 	}
+	
+	/**
+	 * 계좌 상세 모달창 DonJo 거래내역
+	 * @param acct_no
+	 * @return List<transactionVO>
+	 */
+	
+	public List<transactionVO> searchDonJoTransaction(String acct_no) {
+		
+		List<transactionVO> transactionList = new ArrayList<>();
+		StringBuilder sql = new StringBuilder();
+		sql.append(" select t.balance,  t.myacc, t.tr_code, t.othacc, n.name, t.tran_dt, t.othbank ");
+		sql.append(" from tranhistory@DONJO_link t, ");
+		sql.append(" (select a.account as account, u.name as name ");
+		sql.append(" from userinfo@DONJO_link u, accountdb@DONJO_link a ");
+		sql.append(" where u.id = a.id ) n ");
+		sql.append(" where  t.othacc = n.account and t.myacc=? ");
+		
+	
+		try (Connection conn = new ConnectionFactory().getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(sql.toString());) {
 
+			pstmt.setString(1, acct_no);
+
+			ResultSet rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+
+				transactionVO transaction = new transactionVO();
+
+				transaction.setAmount(rs.getInt("BALANCE"));
+				transaction.setCounterpartAccountNo(rs.getString("OTHACC"));
+				transaction.setCounterpartName(rs.getString("NAME"));
+				transaction.setType(rs.getString("TR_CODE"));
+				transaction.setCounterpartBank(rs.getString("OTHBANK"));
+				transaction.setAccountNo(rs.getString("MYACC"));
+				transaction.setDate(rs.getString("TRAN_DT"));
+
+				transactionList.add(transaction);
+
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return transactionList;
+		
+	}
+
+	
 	/**
 	 * 내부 - 내부 거래내역 기록 트랜잭션
 	 * 계좌 테이블 update, 거래내역 테이블 insert
