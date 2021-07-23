@@ -1,5 +1,6 @@
 package kr.ac.jb.transaction;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -196,6 +197,46 @@ public class transactionDAO {
 			JDBCClose.close(conn, pstmt);
 		}
 
+	}
+	
+	/**
+	 * 오픈뱅킹 계좌이체
+	 * @param transaction
+	 */
+	public boolean openbankingTransfer(transactionVO transaction) {
+		
+		boolean bool = false;
+		String sql ="{call openbanking_transfer(?,?,?,?,?)";
+		
+		try(
+				Connection conn = new ConnectionFactory().getConnection();
+				CallableStatement cstmt = conn.prepareCall(sql);
+				
+				) {
+				
+				int loc = 1;
+				cstmt.setString(loc++, sql); //내 은행코드
+				cstmt.setString(loc++, sql); //상대방 은행코드
+				cstmt.setString(loc++, sql); // 이체할 금액
+				cstmt.setString(loc++, sql); // 출금하는 내 은행 계좌
+				cstmt.setString(loc++, sql); // 입금하는 상대방 은행 계좌
+				
+				int cnt = cstmt.executeUpdate();
+				
+				if(cnt == 1) {
+					
+					bool = true;
+				}
+				
+				
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return bool;
+		
+		
 	}
 
 }

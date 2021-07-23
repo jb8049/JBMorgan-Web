@@ -18,17 +18,13 @@ public class kakaologinProcessController implements Controller {
 		//HttpSession session = request.getSession();
 		
 		
-		
 		// 카카오톡 로그인 선택 => 동의 => id 추출
 		String kakao_id = request.getParameter("kakao_id");
 		
 		HttpSession session = request.getSession();
-		session.setAttribute("kakao_id", kakao_id);
-		
-		
+		session.setAttribute("kakao_id", kakao_id); //왜 했지?
 		
 		memberDAO mDao = new memberDAO();
-		
 		memberVO userVO = mDao.searchKakoId(kakao_id);
 		// userVO에 저장된 값은 아이디, 이름, 동의여부,, 비밀번호도 저장함(null인 카카오 아이디 구분하기 위해)
 		

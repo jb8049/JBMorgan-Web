@@ -159,17 +159,18 @@
 					</table>
 					<br>
 					
-					<form action="<%= request.getContextPath()%>/bank/transferProcess.jb" method="post">
+					<form action="<%= request.getContextPath()%>/bank/openbankingTransferProcess.jb" method="post">
 						<input type="hidden" name=acct_no value="${ account.acct_no }">
+						<input type="hidden" name=myBankCode value="${param.bankCode}">
 						
 						<table border=1px solid>
 							<tr>
 								<th>송금할 은행</th>
 								<td>
-								<input type="radio" name="bankCode" value="J" checked="checked">JBMorgan
-								<input type="radio" name="bankCode" value="D">DonJo
-								<input type="radio" name="bankCode" value="Y">YG
-								<input type="radio" name="bankCode" value="S">SeJin
+								<input type="radio" name="counterBankCode" value="J" checked="checked">JBMorgan
+								<input type="radio" name="counterBankCode" value="D">DonJo
+								<input type="radio" name="counterBankCode" value="Y">YG
+								<input type="radio" name="counterBankCode" value="S">SeJin
 								</td>
 							</tr>
 							<tr>

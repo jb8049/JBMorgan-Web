@@ -21,7 +21,6 @@ public class openbankingController implements Controller {
 		
 		String id = userVO.getId();
 		
-
 		memberDAO dao = new memberDAO();
 		
 		// 오픈뱅킹 동의 o => 'Y'로 agreement를 업데이트하고, session에 있는 userVO도 업데이트해야함

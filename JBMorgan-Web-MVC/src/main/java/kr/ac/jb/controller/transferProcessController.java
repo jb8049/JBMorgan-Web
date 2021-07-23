@@ -33,7 +33,7 @@ public class transferProcessController implements Controller {
 		int transferBalance = Integer.parseInt (request.getParameter("transferBalance"));
 		
 		// 본인 계좌 비밀번호
-		String acctPassword = request.getParameter("acctPassword"); 
+		String acctPassword = request.getParameter("acctPassword");
 		
 		accountDAO myAccountDAO = new accountDAO();
 		// 내 계좌에 대한 정보를 얻어옴
@@ -97,6 +97,7 @@ public class transferProcessController implements Controller {
 		
 		// 계좌 실패 msg, 성공하는 경우 출력하지 않음
 		request.setAttribute("msg", msg);
+		// transferSuccess.jsp에서 사용할 transaction 등록
 		request.setAttribute("transaction", transaction);
 		
 		HttpSession session = request.getSession();
