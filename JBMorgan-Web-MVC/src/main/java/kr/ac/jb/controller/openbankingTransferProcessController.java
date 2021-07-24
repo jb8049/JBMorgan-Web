@@ -47,18 +47,15 @@ public class openbankingTransferProcessController implements Controller {
 		switch(counterBankCode) {
 		case "J":
 			counterAccount = CounterAcctDao.searchJBMorganAccount(counterAcctNo);
-			
 		    break;
 		case "S":
 			counterAccount = CounterAcctDao.searchSejinAccount(counterAcctNo);
-		    	 
 		    break;
 	    case "D":
 	    	counterAccount = CounterAcctDao.searchDonJoAccount(counterAcctNo);
-		    
 		    break;
 		case "Y":
-		    	
+			counterAccount = CounterAcctDao.searchYGAccount(counterAcctNo);
 		    break;
 		}
 		
@@ -72,18 +69,15 @@ public class openbankingTransferProcessController implements Controller {
 			switch(myBankCode) {
 				case "J":
 					myAccount = accountDao.searchJBMorganAccount(acctNo);
-					
 				    break;
 				case "S":
 					myAccount = accountDao.searchSejinAccount(acctNo);
-				    	 
 				    break;
 			    case "D":
 			    	myAccount = accountDao.searchDonJoAccount(acctNo);
-				    
-				    break;
+			    	break;
 				case "Y":
-				    	
+					myAccount = accountDao.searchYGAccount(acctNo);
 				    break;
 				}
 			
@@ -98,8 +92,10 @@ public class openbankingTransferProcessController implements Controller {
 					transaction.setCounterpartBank(counterBankCode); // 상대방 은행 코드
 					transaction.setHolder(myAccount.getHolder()); // 내 이름
 					transaction.setCounterpartName(counterAccount.getHolder()); // 상대방 이름
+					transaction.setMyBankCode(myBankCode);
 					
 					transactionDAO tDao = new transactionDAO();
+					
 					// 계좌이체 성공
 					boolean bool = tDao.openbankingTransfer(transaction);
 					

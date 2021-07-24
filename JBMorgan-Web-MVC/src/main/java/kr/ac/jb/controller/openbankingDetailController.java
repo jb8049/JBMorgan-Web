@@ -38,15 +38,16 @@ public class openbankingDetailController implements Controller {
 	         break;
 	    case "S":
 	    	 account = dao.searchSejinAccount(acctNo);
-	    	 
+	    	 //세진은행 거래내역 조회하는 쿼리 필요
 	         break;
 	    case "D":
 	    	 account = dao.searchDonJoAccount(acctNo);
 	    	 transactionList = tDao.searchDonJoTransaction(acctNo);
 	    	 break;
 	    case "Y":
-	    	
-	    	break;
+	         account = dao.searchYGAccount(acctNo);
+	         transactionList = tDao.searchYGTransaction(acctNo);
+	    	 break;
 		}
 		
 		request.setAttribute("transactionList", transactionList);

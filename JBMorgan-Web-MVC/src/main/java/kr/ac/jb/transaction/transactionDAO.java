@@ -68,12 +68,10 @@ public class transactionDAO {
 		
 		List<transactionVO> transactionList = new ArrayList<>();
 		StringBuilder sql = new StringBuilder();
-		sql.append(" select t.balance,  t.myacc, t.tr_code, t.othacc, n.name, t.tran_dt, t.othbank ");
-		sql.append(" from tranhistory@DONJO_link t, ");
-		sql.append(" (select a.account as account, u.name as name ");
-		sql.append(" from userinfo@DONJO_link u, accountdb@DONJO_link a ");
-		sql.append(" where u.id = a.id ) n ");
-		sql.append(" where  t.othacc = n.account and t.myacc=? ");
+		sql.append(" select balance,  myacc, tr_code, othacc, tran_dt, othbank ");
+		sql.append(" from tranhistory@DONJO_link ");
+		sql.append(" where myacc=? ");
+		sql.append(" order by tran_dt desc ");
 		
 		try (Connection conn = new ConnectionFactory().getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(sql.toString());) {
@@ -88,7 +86,7 @@ public class transactionDAO {
 
 				transaction.setAmount(rs.getInt("BALANCE"));
 				transaction.setCounterpartAccountNo(rs.getString("OTHACC"));
-				transaction.setCounterpartName(rs.getString("NAME"));
+				//transaction.setCounterpartName(rs.getString("NAME"));
 				transaction.setType(rs.getString("TR_CODE"));
 				transaction.setCounterpartBank(rs.getString("OTHBANK"));
 				transaction.setAccountNo(rs.getString("MYACC"));
@@ -105,6 +103,69 @@ public class transactionDAO {
 		return transactionList;
 		
 	}
+	
+	/**
+	 * 계좌 상세 모달창 YG 거래내역
+	 * @param acct_no
+	 * @return List<transactionVO>
+	 */
+	public List<transactionVO> searchYGTransaction(String acct_no) {
+		
+		List<transactionVO> transactionList = new ArrayList<>();
+		StringBuilder sql = new StringBuilder();
+		
+		sql.append(" SELECT ");
+		sql.append(" C.CUSTOMER_ACCOUNT_CHANGE AS AMOUNT, ");
+		sql.append(" C.ACCOUNT_NUMBER AS COUNTERPART_ACCT_NO, ");
+		sql.append(" H.HISTORY_TASK AS TYPE, ");
+		sql.append(" H.RECEIVER_BANK AS COUNTERPART_BANK, ");
+		sql.append(" H.RECEIVER_ACCOUNT AS ACCT_NO, ");
+		sql.append(" H.HISTORY_DATE AS TRANSACTION_DATE ");
+		sql.append(" FROM CUSTOMER_TB@YG_LINK T, CUSTOMER_ACCOUNT@YG_LINK C, HISTORY@YG_LINK H ");
+		sql.append(" WHERE T.CUSTOMER_SQ = C.CUSTOMER_SQ AND ");
+		sql.append(" C.CUSTOMER_ACCOUNT_SQ = H.CUSTOMER_ACCOUNT_SQ and RECEIVER_ACCOUNT=? ");
+		
+		try (Connection conn = new ConnectionFactory().getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(sql.toString());) {
+
+			pstmt.setString(1, acct_no);
+
+			ResultSet rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+
+				transactionVO transaction = new transactionVO();
+
+				transaction.setAmount(rs.getInt("AMOUNT"));
+				transaction.setCounterpartAccountNo(rs.getString("COUNTERPART_ACCT_NO"));
+				//transaction.setCounterpartName(rs.getString("NAME"));
+				transaction.setType(rs.getString("TYPE"));
+				transaction.setCounterpartBank(rs.getString("COUNTERPART_BANK"));
+				transaction.setAccountNo(rs.getString("ACCT_NO"));
+				transaction.setDate(rs.getString("TRANSACTION_DATE"));
+
+				transactionList.add(transaction);
+
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return transactionList;
+		
+	}
+	
+	
+	
+	/**
+	 * 계좌 상세 모달창 SeJin 거래내역 (세지은행 거래내역 안만듦)
+	 * @param acct_no
+	 * @return List<transactionVO>
+	 */
+	
+	
+	
 
 	
 	/**
@@ -206,7 +267,7 @@ public class transactionDAO {
 	public boolean openbankingTransfer(transactionVO transaction) {
 		
 		boolean bool = false;
-		String sql ="{call openbanking_transfer(?,?,?,?,?)";
+		String sql ="{call test_transfer(?,?,?,?,?,?,?)";
 		
 		try(
 				Connection conn = new ConnectionFactory().getConnection();
@@ -215,14 +276,15 @@ public class transactionDAO {
 				) {
 				
 				int loc = 1;
-				cstmt.setString(loc++, sql); //내 은행코드
-				cstmt.setString(loc++, sql); //상대방 은행코드
-				cstmt.setString(loc++, sql); // 이체할 금액
-				cstmt.setString(loc++, sql); // 출금하는 내 은행 계좌
-				cstmt.setString(loc++, sql); // 입금하는 상대방 은행 계좌
+				cstmt.setString(loc++, transaction.getMyBankCode()); // 내 은행코드
+				cstmt.setString(loc++, transaction.getCounterpartBank()); // 상대방 은행코드
+				cstmt.setInt(loc++, transaction.getAmount()); // 이체할 금액
+				cstmt.setString(loc++, transaction.getAccountNo()); // 출금하는 내 은행 계좌
+				cstmt.setString(loc++, transaction.getCounterpartAccountNo()); // 입금하는 상대방 은행 계좌
+				cstmt.setString(loc++, transaction.getHolder()); // 출금하는 계좌주(나)
+				cstmt.setString(loc++, transaction.getCounterpartName()); // 상대방 계좌주
 				
 				int cnt = cstmt.executeUpdate();
-				
 				if(cnt == 1) {
 					
 					bool = true;

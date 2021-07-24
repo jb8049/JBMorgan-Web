@@ -89,7 +89,6 @@
 							<tr>
 								<th>거래시간</th>
 								<th>상대방 계좌</th>
-								<th>상대방 이름</th>
 								<th>유형</th>
 								<th>은행명</th>
 								<th>금액</th>
@@ -99,7 +98,6 @@
 								<tr>
 									<td><c:out value="${ list.date }" /></td>
 									<td><c:out value="${ list.counterpartAccountNo }" /></td>
-									<td><c:out value="${ list.counterpartName }" /></td>
 									<td><c:out value="${ list.type }"/></td>
 									
 									<c:choose>

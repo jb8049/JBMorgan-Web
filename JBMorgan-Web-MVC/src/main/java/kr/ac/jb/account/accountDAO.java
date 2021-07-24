@@ -181,6 +181,58 @@ public class accountDAO {
 		return account;
 	}
 	
+	/**
+	 * YG 계좌 조회
+	 * @param no
+	 * @return
+	 */
+	
+	public accountVO searchYGAccount(String no) {
+		
+		accountVO account = null;
+
+		StringBuilder sql = new StringBuilder();
+
+		sql.append(" SELECT ");
+		sql.append(" CUSTOMER_NAME AS HOLDER, ");
+		sql.append(" ACCOUNT_NUMBER AS ACCT_NO, ");
+		sql.append(" CUSTOMER_ACCOUNT_PWD AS ACCT_PWD, ");
+		sql.append(" CUSTOMER_ACCOUNT_ALIAS AS ACCT_NAME, ");
+		sql.append(" CUSTOMER_ACCOUNT_CHANGE AS BALANCE, ");
+		sql.append(" CUSTOMER_ACCOUNT_INPUT_DATE AS REG_DATE FROM ");
+		sql.append(" CUSTOMER_TB@YG_LINK T, CUSTOMER_ACCOUNT@YG_LINK C ");
+		sql.append(" WHERE ");
+		sql.append(" T.CUSTOMER_SQ = C.CUSTOMER_SQ AND ACCOUNT_NUMBER=? ");
+		
+		try (Connection conn = new ConnectionFactory().getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+
+		) {
+
+			pstmt.setString(1, no);
+
+			ResultSet rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+
+				account = new accountVO();
+
+				account.setAcct_pwd(rs.getString("acct_pwd"));
+				account.setAcct_no(rs.getString("acct_no"));
+				account.setAcct_name(rs.getString("acct_name"));
+				account.setBalance(rs.getInt("balance"));
+				account.setReg_date(rs.getString("reg_date"));
+				account.setHolder(rs.getString("holder"));
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return account;
+		
+		
+	}
 	
 
 	

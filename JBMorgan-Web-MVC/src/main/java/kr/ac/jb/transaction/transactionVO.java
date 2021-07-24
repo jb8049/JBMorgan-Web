@@ -13,6 +13,7 @@ public class transactionVO {
 	private String counterpartBank;
 	private int balance;
 	private int counterBalance;
+	private String myBankCode;
 	
 	public int getTransactionNo() {
 		return transactionNo;
@@ -81,6 +82,14 @@ public class transactionVO {
 	public void setType(String type) {
 		this.type = type;
 	}
+	public String getMyBankCode() {
+		return myBankCode;
+	}
+	public void setMyBankCode(String myBankCode) {
+		this.myBankCode = myBankCode;
+	}
+	
+	
 	
 	
 	
