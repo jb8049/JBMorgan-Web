@@ -86,8 +86,15 @@ public class transactionDAO {
 
 				transaction.setAmount(rs.getInt("BALANCE"));
 				transaction.setCounterpartAccountNo(rs.getString("OTHACC"));
-				//transaction.setCounterpartName(rs.getString("NAME"));
-				transaction.setType(rs.getString("TR_CODE"));
+				String type = rs.getString("TR_CODE"); // M, Y => 입금, 출금 형식으로 변환
+				
+				if(type.equals("M")) {
+					type ="출금"; 
+				}else if(type.equals("A")) {
+					type ="입금";
+				}
+				
+				transaction.setType(type);
 				transaction.setCounterpartBank(rs.getString("OTHBANK"));
 				transaction.setAccountNo(rs.getString("MYACC"));
 				transaction.setDate(rs.getString("TRAN_DT"));

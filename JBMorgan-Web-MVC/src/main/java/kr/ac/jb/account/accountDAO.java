@@ -287,6 +287,10 @@ public class accountDAO {
 		sql.append(" select A.ACCOUNT, A.ACCPWD, A.BALANCE, A.ACCALIAS, M.NAME, (select bank_code from bank where bank_name ='DonJo') AS BANK ");
 		sql.append(" from USERINFO@DONJO_link M, ACCOUNTDB@DONJO_link A ");
 		sql.append(" where M.ID = A.ID AND M.RES_CODE=? ");
+		sql.append(" UNION ");
+		sql.append(" SELECT A.ACCOUNT_NUMBER, A.CUSTOMER_ACCOUNT_PWD,A.CUSTOMER_ACCOUNT_CHANGE, A.CUSTOMER_ACCOUNT_ALIAS, M.CUSTOMER_NAME, (select bank_code from bank where bank_name ='YG') AS BANK ");
+		sql.append(" FROM CUSTOMER_TB@YG_LINK M, CUSTOMER_ACCOUNT@YG_LINK A ");
+		sql.append(" WHERE M.CUSTOMER_SQ = A.CUSTOMER_SQ AND M.CUSTOMER_JUMIN_NO =? ");
 		
 		
 		try(
@@ -297,6 +301,7 @@ public class accountDAO {
 				
 				int loc = 1;
 				
+				pstmt.setString(loc++, ssn);
 				pstmt.setString(loc++, ssn);
 				pstmt.setString(loc++, ssn);
 				pstmt.setString(loc++, ssn);

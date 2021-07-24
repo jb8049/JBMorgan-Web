@@ -26,6 +26,7 @@ public class openbankingDetailController implements Controller {
 		accountVO account = new accountVO();
 		accountDAO dao = new accountDAO();
 		transactionDAO tDao = new transactionDAO();
+		
 		//각 은행별 거래내역 리스트
 		List<transactionVO> transactionList = new ArrayList<>();
 		

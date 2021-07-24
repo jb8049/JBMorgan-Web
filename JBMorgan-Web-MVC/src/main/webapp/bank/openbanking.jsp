@@ -78,6 +78,9 @@
                            				<c:when test="${ openbankingAccount.bankCode eq 'D'}">
                            					<td><c:out value="DonJo"/></td>
                            				</c:when>
+                           				<c:when test="${ openbankingAccount.bankCode eq 'Y'}">
+                           					<td><c:out value="YGBANK"/></td>
+                           				</c:when>
                            			</c:choose>
                            				<td><c:out value='${ openbankingAccount.acct_name }'  /></td>
                            				<td><c:out value='${ openbankingAccount.balance }'  /></td>
