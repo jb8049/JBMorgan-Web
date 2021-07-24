@@ -40,7 +40,6 @@
 
 <script>
 	
-
 	try {
 	  function sendLinkDefault() {
 	    Kakao.init('bbe9ec6b57b56d8ef60c464ef2214a90')
@@ -49,7 +48,7 @@
 	      content: {
 	        title: 'JBMorgan 이체내역',
 	        description: '회원님의 '+${transaction.counterpartAccountNo}+' 계좌로 '+${transaction.amount} +'원이 입금되었습니다.',
-	        imageUrl:'',
+	        imageUrl:'https://github.com/jb8049/0312_homework/blob/main/kakaologo.png?raw=true',
 	        link: {
 	          mobileWebUrl: 'https://developers.kakao.com',
 	          webUrl: 'https://developers.kakao.com',

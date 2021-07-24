@@ -121,17 +121,17 @@ public class transactionDAO {
 		List<transactionVO> transactionList = new ArrayList<>();
 		StringBuilder sql = new StringBuilder();
 		
-		sql.append(" SELECT ");
-		sql.append(" C.CUSTOMER_ACCOUNT_CHANGE AS AMOUNT, ");
-		sql.append(" C.ACCOUNT_NUMBER AS COUNTERPART_ACCT_NO, ");
+		sql.append(" SELECT H.modify_change AS AMOUNT, ");
+		sql.append(" H.RECEIVER_ACCOUNT AS COUNTERPART_ACCT_NO, ");
+		sql.append(" C.ACCOUNT_NUMBER AS ACCT_NO, ");
 		sql.append(" H.HISTORY_TASK AS TYPE, ");
 		sql.append(" H.RECEIVER_BANK AS COUNTERPART_BANK, ");
-		sql.append(" H.RECEIVER_ACCOUNT AS ACCT_NO, ");
 		sql.append(" H.HISTORY_DATE AS TRANSACTION_DATE ");
-		sql.append(" FROM CUSTOMER_TB@YG_LINK T, CUSTOMER_ACCOUNT@YG_LINK C, HISTORY@YG_LINK H ");
-		sql.append(" WHERE T.CUSTOMER_SQ = C.CUSTOMER_SQ AND ");
-		sql.append(" C.CUSTOMER_ACCOUNT_SQ = H.CUSTOMER_ACCOUNT_SQ and RECEIVER_ACCOUNT=? ");
-		
+		sql.append(" FROM CUSTOMER_TB@YG_LINK T, CUSTOMER_ACCOUNT@YG_LINK C, HISTORY@YG_LINK H  ");
+		sql.append(" WHERE T.CUSTOMER_SQ = C.CUSTOMER_SQ ");
+		sql.append(" AND C.CUSTOMER_ACCOUNT_SQ = H.CUSTOMER_ACCOUNT_SQ and ACCOUNT_NUMBER=? ");
+		sql.append(" order by H.HISTORY_DATE desc ");
+			
 		try (Connection conn = new ConnectionFactory().getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(sql.toString());) {
 
@@ -274,7 +274,7 @@ public class transactionDAO {
 	public boolean openbankingTransfer(transactionVO transaction) {
 		
 		boolean bool = false;
-		String sql ="{call test_transfer(?,?,?,?,?,?,?)";
+		String sql ="{call openbanking_transfer(?,?,?,?,?,?,?)";
 		
 		try(
 				Connection conn = new ConnectionFactory().getConnection();

@@ -10,17 +10,17 @@
 			<c:when test="${ not empty userVO}">
 				
 				switch (no) {
-				  case 1: //계좌 개설
+				  case 1: //계좌개설
 				    location.href = '<%= request.getContextPath()%>/bank/createAccountForm.jb'
 				    break;
-				  case 2: //계좌 조회
+				  case 2: //계좌조회
 					location.href = '<%= request.getContextPath()%>/bank/searchAccount.jb'
 				    break;
-				  case 3: //오픈 뱅킹
+				  case 3: //오픈뱅킹
                   	location.href = '<%= request.getContextPath()%>/bank/openbanking.jb'
 				  	break; 
-				  case 4: //고객 센터
-					location.href = '<%= request.getContextPath()%>/login/registerForm.jb'
+				  case 4: //고객문의
+					location.href = '<%= request.getContextPath()%>/board/boardList.jb'
 				  	break; 
 				}
 			</c:when>
@@ -109,7 +109,7 @@
 	                           </li>
 	                              
 							   <li class="nav-item">
-                                 <a class="nav-link" href="javascript:docheck(4)">고객센터</a>
+                                 <a class="nav-link" href="javascript:docheck(4)">고객문의</a>
                               </li>
                               <c:if test="${empty userVO}" >
 	                              <li class="nav-item">
