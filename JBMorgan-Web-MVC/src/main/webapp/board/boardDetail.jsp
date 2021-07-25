@@ -53,8 +53,31 @@
 
 </script>
 
-<link rel="stylesheet" href="/JBMorgan-Web-MVC/resources/css/board.css">
+<!-- <link rel="stylesheet" href="/JBMorgan-Web-MVC/resources/css/board.css"> -->
+<style>
 
+table, th, td {
+	border: 1px solid rgba(39, 43, 44, 0.87);
+	border-collapse: collapse;
+	color: #555;
+	font-family: verdana, sans-serif;
+}
+
+td, th {
+	padding: 5px;
+}
+
+td a:hover {
+	text-decoration: underline;
+}
+
+table th {
+	background-color: rgba(39, 43, 44, 0.87);;
+	color: rgba(39, 43, 44, 0.87);
+}
+
+
+</style>
 
 </head>
 
@@ -75,7 +98,7 @@
 	<!-- end header -->
 
 	<!-- contact -->
-	<div class="contact" style="margin-bottom: 200px">
+	<div class="contact" >
 		<div class="container">
 			<div class="row ">
 				<div class="col-md-8 offset-md-2">
@@ -89,23 +112,23 @@
 								<br>
 								<table style="width: 100%" id="list">
 									<tr>
-										<th width="25%">번호</th>
+										<th width="25%" style="color:#ffffff ; background-color: rgba(39, 43, 44, 0.87) ;">번호</th>
 										<td><c:out value="${ board.boardNo }" /></td>
 									</tr>
 									<tr>
-										<th width="25%">제목</th>
+										<th width="25%" style="color:#ffffff ; background-color: rgba(39, 43, 44, 0.87) ;">제목</th>
 										<td><c:out value="${ board.title }" /></td>
 									</tr>
 									<tr>
-										<th width="25%">작성자</th>
+										<th width="25%" style="color:#ffffff ; background-color: rgba(39, 43, 44, 0.87) ;">작성자</th>
 										<td><c:out value="${ board.id }" /></td>
 									</tr>
 									<tr>
-										<th width="25%">내용</th>
+										<th width="25%" style="color:#ffffff ; background-color: rgba(39, 43, 44, 0.87) ;">내용</th>
 										<td><c:out value="${ board.content }" /></td>
 									</tr>
 									<tr>
-										<th width="25%">등록일</th>
+										<th width="25%" style="color:#ffffff ; background-color: rgba(39, 43, 44, 0.87) ;">등록일</th>
 										<td><c:out value="${ board.regDate }" /></td>
 									</tr>
 								</table>

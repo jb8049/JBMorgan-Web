@@ -48,6 +48,7 @@ public class boardDAO {
 	
 	public List<boardVO> searchBoardList() {
 		
+		String title ="";
 		List<boardVO> boardList = new ArrayList<>();
 		StringBuilder sql = new StringBuilder();
 
@@ -68,8 +69,16 @@ public class boardDAO {
 				board.setGroupNo(rs.getInt("GROUP_NO"));
 				board.setDepth(rs.getInt("DEPTH"));
 				board.setIndent(rs.getInt("INDENT"));
+				
+				if(rs.getInt("INDENT") !=0) {
+					title = "ㄴ" + rs.getString("TITLE");
+				}else {
+					// 들여쓰기가 0인 parent 게시글
+					title = rs.getString("TITLE");
+				}
+				
 				board.setParent(rs.getInt("PARENT"));
-				board.setTitle(rs.getString("TITLE"));
+				board.setTitle(title);
 				board.setContent(rs.getString("CONTENT"));
 				board.setRegDate(rs.getString("REG_DATE"));
 				board.setId(rs.getString("MEMBER_ID"));
@@ -150,7 +159,7 @@ public class boardDAO {
 		StringBuilder sql = new StringBuilder();
 		
 		sql.append(" insert into bank_board (BOARD_NO, GROUP_NO, DEPTH, INDENT, PARENT, TITLE, CONTENT, MEMBER_ID) ");
-		sql.append(" values(BOARD_SEQ.nextval,? ,? ,? ,? ,? ,? ,?);");
+		sql.append(" values(BOARD_SEQ.nextval,? ,? ,? ,? ,? ,? ,?) ");
 		
 		try (Connection conn = new ConnectionFactory().getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(sql.toString());) {

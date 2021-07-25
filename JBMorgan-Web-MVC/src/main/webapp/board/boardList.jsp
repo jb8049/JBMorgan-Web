@@ -48,7 +48,35 @@
 	
 </script>
 
-<link rel="stylesheet" href="/JBMorgan-Web-MVC/resources/css/board.css">
+<!-- <link rel="stylesheet" href="/JBMorgan-Web-MVC/resources/css/board.css"> -->
+
+<style>
+
+table, th, td {
+	border: 1px solid rgba(39, 43, 44, 0.87);
+	border-collapse: collapse;
+	color: #555;
+	font-family: verdana, sans-serif;
+}
+
+td, th {
+	padding: 5px;
+}
+
+td a:hover {
+	text-decoration: underline;
+}
+
+table th {
+	background-color: rgba(39, 43, 44, 0.87);;
+	color: rgba(39, 43, 44, 0.87);
+}
+
+
+}
+
+
+</style>
 
 
 </head>
@@ -70,7 +98,7 @@
 	<!-- end header -->
 
 	<!-- contact -->
-	<div class="contact" style="margin-bottom: 200px">
+	<div class="contact" >
 		<div class="container">
 			<div class="row ">
 				<div class="col-md-8 offset-md-2">
@@ -84,10 +112,10 @@
 								<br>
 								<table style="width: 100%" id="list">
 									<tr>
-										<th width="7%" style="text-align: center">번호</th>
-										<th style="text-align: center;">제목</th>
-										<th width="16%" style="text-align: center">작성자</th>
-										<th width="20%" style="text-align: center">등록일</th>
+										<th width="7%" style="text-align: center; color:#ffffff ; background-color: rgba(39, 43, 44, 0.87) ;">번호</th>
+										<th style="text-align: center; color:#ffffff ; background-color: rgba(39, 43, 44, 0.87) ;">제목</th>
+										<th width="16%" style="text-align: center; color:#ffffff ; background-color: rgba(39, 43, 44, 0.87) ;">작성자</th>
+										<th width="20%" style="text-align: center; color:#ffffff ; background-color: rgba(39, 43, 44, 0.87) ;">등록일</th>
 									</tr>
 									
 									<c:forEach items="${ boardList }" var="board">

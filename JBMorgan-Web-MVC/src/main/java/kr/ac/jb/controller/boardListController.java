@@ -23,6 +23,9 @@ public class boardListController implements Controller {
 		
 		boardList = dao.searchBoardList();
 		
+		//boardList가 가지고 있는 값 중 indent가 0이 아닌 것은 
+		
+		
 		request.setAttribute("boardList",boardList);
 		
 		return "/board/boardList.jsp";

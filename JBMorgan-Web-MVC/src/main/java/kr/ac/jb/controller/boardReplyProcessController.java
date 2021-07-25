@@ -11,6 +11,8 @@ public class boardReplyProcessController implements Controller {
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
+		request.setCharacterEncoding("utf-8");
+		
 		int parentBoardNo = Integer.parseInt(request.getParameter("parentBoardNo"));
 		
 		/*
@@ -31,7 +33,7 @@ public class boardReplyProcessController implements Controller {
 //		family	원글의 family 와 같게
 //		parent	부모글의 글번호
 //		depth	(parentDepth) + 1
-//		indent	(ident ) + 1
+//		indent	(ident) + 1
 		
 // 		답글에 대한 정보, 이전에 입력한 파라미터 받아오기, id, title content
 		String id = request.getParameter("id");

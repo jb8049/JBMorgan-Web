@@ -12,6 +12,7 @@ public class writeProcessController implements Controller {
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		// 새글등록을 통해 등록되는 글
+		request.setCharacterEncoding("utf-8");
 		
 		String id = request.getParameter("id");
 		String title = request.getParameter("title");
