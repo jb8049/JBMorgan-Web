@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -37,15 +37,20 @@
 
 <script>
 
-	$(document).ready(function(){
+	function goBoardList(){
 		
-		$('#addBtn').click(function(){
-			
-			location.href ="<%= request.getContextPath()%>/board/writeForm.jb"
-		})
-	})
-	
-	
+		location.href="<%=request.getContextPath()%>/board/boardList.jb"
+	}
+</script>
+
+<script>
+
+	function goReply(){
+		
+		location.href="<%=request.getContextPath()%>/board/boardReply.jb?boardNo=${ board.boardNo }"
+	}
+
+
 </script>
 
 <link rel="stylesheet" href="/JBMorgan-Web-MVC/resources/css/board.css">
@@ -75,7 +80,7 @@
 			<div class="row ">
 				<div class="col-md-8 offset-md-2">
 					<div class="titlepage text_align_left">
-						<h2>고객문의</h2>
+						<h2>문의 상세</h2>
 					</div>
 					<div class="row">
 						<div class="col-md-12" align="center">
@@ -84,28 +89,29 @@
 								<br>
 								<table style="width: 100%" id="list">
 									<tr>
-										<th width="7%" style="text-align: center">번호</th>
-										<th style="text-align: center;">제목</th>
-										<th width="16%" style="text-align: center">작성자</th>
-										<th width="20%" style="text-align: center">등록일</th>
+										<th width="25%">번호</th>
+										<td><c:out value="${ board.boardNo }" /></td>
 									</tr>
-									
-									<c:forEach items="${ boardList }" var="board">
-										<tr>
-											<td><c:out value="${ board.boardNo }" /></td>
-											<td>
-												<a href="<%= request.getContextPath()%>/board/boardDetail.jb?boardNo=${board.boardNo}"><c:out value="${ board.title }" />
-												</a>
-											</td>
-											<td><c:out value="${ board.id }" /></td>
-											<td><c:out value="${ board.regDate }" /></td>
-										</tr>
-									</c:forEach>
+									<tr>
+										<th width="25%">제목</th>
+										<td><c:out value="${ board.title }" /></td>
+									</tr>
+									<tr>
+										<th width="25%">작성자</th>
+										<td><c:out value="${ board.id }" /></td>
+									</tr>
+									<tr>
+										<th width="25%">내용</th>
+										<td><c:out value="${ board.content }" /></td>
+									</tr>
+									<tr>
+										<th width="25%">등록일</th>
+										<td><c:out value="${ board.regDate }" /></td>
+									</tr>
 								</table>
 								<br>
-
-								<button id="addBtn">새글등록</button>
-
+								<input type="button" onclick="goBoardList()" value="목록">
+								<input type="button" onclick="goReply()" value="답글">
 							</div>
 
 						</div>
@@ -124,3 +130,7 @@
 
 </body>
 </html>
+
+
+
+

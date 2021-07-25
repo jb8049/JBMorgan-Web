@@ -34,7 +34,7 @@ public class RegisterController implements Controller {
 		memberDAO dao = new memberDAO();
 		dao.register(member);
 		
-		return "redirect:/login/registerForm.jb";  // 회원가입 후 forward할 필요없이, index.jsp로 sendRedirect
+		return "redirect:/board/boardList.jb";  // 회원가입 후 forward할 필요없이, index.jsp로 sendRedirect
 	}
 
 }

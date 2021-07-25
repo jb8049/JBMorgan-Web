@@ -37,18 +37,34 @@
 
 <script>
 
-	$(document).ready(function(){
-		
-		$('#addBtn').click(function(){
-			
-			location.href ="<%= request.getContextPath()%>/board/writeForm.jb"
-		})
+$(document).ready(function(){
+	
+	$('#goListBtn').click(function(){
+									
+		location.href ="<%= request.getContextPath()%>/board/boardList.jb" 
 	})
-	
-	
-</script>
+})
 
-<link rel="stylesheet" href="/JBMorgan-Web-MVC/resources/css/board.css">
+function doWrite(){
+	
+	let f = document.writeForm
+	
+	if(f.title.value == ''){    // title에 입력한 값 => value
+		
+		alert('제목을 입력하세요.')
+		f.title.focus()
+		return false
+	}
+	
+	if(f.content.value ==''){
+		
+		alert('내용을 입력하세요')
+		f.content.focus()
+		return false
+	}
+	return true
+}
+</script>
 
 
 </head>
@@ -70,57 +86,60 @@
 	<!-- end header -->
 
 	<!-- contact -->
-	<div class="contact" style="margin-bottom: 200px">
+	<div class="contact">
 		<div class="container">
 			<div class="row ">
 				<div class="col-md-8 offset-md-2">
 					<div class="titlepage text_align_left">
-						<h2>고객문의</h2>
+						<h2>문의 등록</h2>
 					</div>
 					<div class="row">
 						<div class="col-md-12" align="center">
 
 							<div align="center">
 								<br>
-								<table style="width: 100%" id="list">
-									<tr>
-										<th width="7%" style="text-align: center">번호</th>
-										<th style="text-align: center;">제목</th>
-										<th width="16%" style="text-align: center">작성자</th>
-										<th width="20%" style="text-align: center">등록일</th>
-									</tr>
-									
-									<c:forEach items="${ boardList }" var="board">
-										<tr>
-											<td><c:out value="${ board.boardNo }" /></td>
-											<td>
-												<a href="<%= request.getContextPath()%>/board/boardDetail.jb?boardNo=${board.boardNo}"><c:out value="${ board.title }" />
-												</a>
-											</td>
-											<td><c:out value="${ board.id }" /></td>
-											<td><c:out value="${ board.regDate }" /></td>
-										</tr>
-									</c:forEach>
-								</table>
-								<br>
+								<section>
 
-								<button id="addBtn">새글등록</button>
+									<div align="center">		
+										<form action="<%= request.getContextPath()%>/board/writeProcess.jb" method="post" name="writeForm"
+											onsubmit="return doWrite()" style="margin-bottom: 51px;">
+											<input type="hidden" name="id" value="${ userVO.id }">
+
+											<table border="1" style="width: 80%">
+												<tr>
+													<th width="25%" style="text-align: center">제목</th>
+													<td><input type="text" size="60" name="title"></td>
+												</tr>
+												<tr>
+													<th width="25%" style="text-align: center">작성자</th>
+													<td> 
+														<c:out value="${ userVO.id }" />
+													</td>
+												</tr>
+												<tr>
+													<th width="25%" style="text-align: center">내용</th>
+													<td><textarea rows="8" cols="60" name="content"></textarea></td>
+												</tr>
+											</table>
+											<br> <input type="submit" value="등록"> 
+											<input id=goListBtn type="button" value="목록">
+										</form>
+									</div>
+								</section>
+
 
 							</div>
-
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	<!-- contact -->
+		<!-- contact -->
 
-	<!-- footer -->
-	<footer>
-		<jsp:include page="/include/bottom.jsp" />
-	</footer>
-	<!-- end footer -->
-
+		<!-- footer -->
+		<footer>
+			<jsp:include page="/include/bottom.jsp" />
+		</footer>
+		<!-- end footer -->
 </body>
 </html>

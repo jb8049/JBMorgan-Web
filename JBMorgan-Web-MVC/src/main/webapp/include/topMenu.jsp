@@ -44,7 +44,7 @@
 			<!-- Modal content-->
 			<div class="modal-content">
 				<div class="modal-header">
-					<h4 class="modal-title">오픈뱅킹 이용약관</h4>
+					<h2 class="modal-title">개인(신용)정보 수집·이용 및 제공 동의서</h2>
 					<button type="button" class="close" data-dismiss="modal"
 						style="padding-top: 5px">×</button>
 				</div>
@@ -53,8 +53,17 @@
 
 					<form action="<%=request.getContextPath() %>/bank/openbanking.jb" method="post">
 						<input type="hidden" name="id" value="${ userVO.id }">
-						오픈뱅킹 이용약관 동의하시겠습니까? <!-- form태그 밖에 두니까, ?id=+jb8049+이런 이상한 형태로 날아감..  -->
-			
+						<h4>개인(신용)정보 수집·이용에 관한 사항</h4>
+							
+						-오픈뱅킹서비스 연결계좌의 거래정보 제공사실 통보<br>
+						※『금융실명거래 및 비밀보장에 관한 법률』 제4조의 2에 따른 법령상 의무<br>
+							
+						-개인식별정보(CI값, 성명, 생년월일), 연결계좌번호, 이메일 주소<br>
+							
+						-위 개인(신용)정보는 오픈뱅킹서비스 이용일로부터 5년 이내 보유·이용하고, 서비스 해지 후에는 위에 기재된 이용 목적과 관련된 금융사고 조사, 분쟁해결, 민원처리, 법령상 의무이행을 위하여 필요한 범위 내에서만 보유·이용됩니다.<br>
+						
+						-당사가 위와 같이 본인의 개인(신용)정보를 수집·이용하는 것에 동의합니다.
+						
 						<div class="modal-footer">
 							<input type="submit" class="btn btn-default" value="동의">
 							<button type="button" class="btn btn-default" data-dismiss="modal">동의하지 않음</button>
