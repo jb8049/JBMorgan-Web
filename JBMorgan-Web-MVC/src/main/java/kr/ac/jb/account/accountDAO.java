@@ -326,10 +326,6 @@ public class accountDAO {
 			e.printStackTrace();
 		}
 		
-		
-		
-		//모든 계좌 조회함
-		
 		return openbankingAccountList;
 		
 		

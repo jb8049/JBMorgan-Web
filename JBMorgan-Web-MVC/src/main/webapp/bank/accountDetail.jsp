@@ -44,7 +44,18 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-
+<style>
+      
+      td, th {
+    		padding: 5px;
+      }
+      
+      table th {
+			background-color: rgba(39, 43, 44, 0.87);;
+			color: #ffffff;
+	  }
+       
+      </style>
 </head>
 
 <!-- body -->

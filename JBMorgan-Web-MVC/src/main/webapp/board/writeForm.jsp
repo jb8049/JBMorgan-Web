@@ -6,6 +6,19 @@
 <html lang="en">
 
 <head>
+
+<style>
+      
+      td, th {
+    		padding: 5px;
+      }
+      
+      table th {
+			background-color: rgba(39, 43, 44, 0.87);;
+			color: #ffffff;
+	  }
+       
+      </style>
 <!-- basic -->
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">

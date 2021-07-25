@@ -71,7 +71,7 @@ public class boardDAO {
 				board.setIndent(rs.getInt("INDENT"));
 				
 				if(rs.getInt("INDENT") !=0) {
-					title = "ㄴ" + rs.getString("TITLE");
+					title = " ㄴ" + rs.getString("TITLE");
 				}else {
 					// 들여쓰기가 0인 parent 게시글
 					title = rs.getString("TITLE");

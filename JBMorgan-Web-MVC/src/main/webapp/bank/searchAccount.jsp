@@ -26,6 +26,19 @@
       <!-- awesome fontfamily -->
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
    	
+   	<style>
+      
+      td, th {
+    		padding: 5px;
+      }
+      
+      table th {
+			background-color: rgba(39, 43, 44, 0.87);;
+			color: #ffffff;
+	  }
+       
+      </style>
+   	
    	  <!-- Javascript files-->
       <script src="/JBMorgan-Web-MVC/resources/js/jquery.min.js"></script>
       <script src="/JBMorgan-Web-MVC/resources/js/bootstrap.bundle.min.js"></script>
@@ -63,11 +76,11 @@
                   </div>
                      <div class="row">
                         <div class="col-md-12" align="center">
-                           <table border=1px solid width="300px">
+                           <table border=1px solid width="350px">
                            		<tr>
                            			<th>계좌번호</th>
-                           			<th width="80px">계좌명</th>
-                           			<th width="80px">잔액</th>
+                           			<th width="120px">계좌명</th>
+                           			<th width="120px">잔액</th>
                            		</tr>
                            		
                            		<c:forEach items="${ accountList }" var="account">
