@@ -19,13 +19,10 @@ public class boardListController implements Controller {
 		List<boardVO> boardList = new ArrayList<>();
 		
 		boardDAO dao = new boardDAO();
-		boardVO board = new boardVO();
 		
 		boardList = dao.searchBoardList();
 		
 		//boardList가 가지고 있는 값 중 indent가 0이 아닌 것은 
-		
-		
 		request.setAttribute("boardList",boardList);
 		
 		return "/board/boardList.jsp";

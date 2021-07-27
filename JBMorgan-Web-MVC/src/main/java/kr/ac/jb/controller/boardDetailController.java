@@ -16,6 +16,8 @@ public class boardDetailController implements Controller {
 		boardDAO dao = new boardDAO();
 		boardVO board = dao.boardDetail(boardNo);
 		
+		//사용자가 선택한 게시물의 상세 정보 저장
+		
 		request.setAttribute("board", board);
 		
 		return "/board/boardDetail.jsp";

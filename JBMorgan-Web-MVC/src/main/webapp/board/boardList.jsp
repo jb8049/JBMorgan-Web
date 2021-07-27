@@ -35,21 +35,6 @@
 <script src="/JBMorgan-Web-MVC/resources/js/jquery-3.0.0.min.js"></script>
 <script src="/JBMorgan-Web-MVC/resources/js/custom.js"></script>
 
-<script>
-
-	$(document).ready(function(){
-		
-		$('#addBtn').click(function(){
-			
-			location.href ="<%= request.getContextPath()%>/board/writeForm.jb"
-		})
-	})
-	
-	
-</script>
-
-<!-- <link rel="stylesheet" href="/JBMorgan-Web-MVC/resources/css/board.css"> -->
-
 <style>
 
 table, th, td {
@@ -70,13 +55,26 @@ td a:hover {
 table th {
 	background-color: rgba(39, 43, 44, 0.87);;
 	color: rgba(39, 43, 44, 0.87);
+	}
 }
-
-
-}
-
 
 </style>
+
+
+<script>
+
+	$(document).ready(function(){
+		
+		$('#addBtn').click(function(){
+			
+			location.href ="<%= request.getContextPath()%>/board/writeForm.jb"
+		})
+	})
+	
+	
+</script>
+
+
 
 
 </head>
@@ -121,10 +119,18 @@ table th {
 									<c:forEach items="${ boardList }" var="board">
 										<tr>
 											<td><c:out value="${ board.boardNo }" /></td>
-											<td>
-												<a href="<%= request.getContextPath()%>/board/boardDetail.jb?boardNo=${board.boardNo}"><c:out value="${ board.title }" />
-												</a>
-											</td>
+										<c:choose>
+											<c:when test="${ board.indent == 0}">
+												<td>
+													<a href="<%= request.getContextPath()%>/board/boardDetail.jb?boardNo=${board.boardNo}"><c:out value="${ board.title }" /></a>
+												</td>
+											</c:when>
+											<c:otherwise>
+												<td>
+													<a href="<%= request.getContextPath()%>/board/boardDetail.jb?boardNo=${board.boardNo}" style="margin-left: ${board.indent * 10}px"><c:out value="[re]:${ board.title }" /></a>									
+												</td>
+											</c:otherwise>
+										</c:choose>
 											<td><c:out value="${ board.id }" /></td>
 											<td><c:out value="${ board.regDate }" /></td>
 										</tr>

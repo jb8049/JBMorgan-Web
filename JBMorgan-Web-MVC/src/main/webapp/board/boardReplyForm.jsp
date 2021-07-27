@@ -7,18 +7,6 @@
 
 <head>
 
-<style>
-      
-      td, th {
-    		padding: 5px;
-      }
-      
-      table th {
-			background-color: rgba(39, 43, 44, 0.87);;
-			color: #ffffff;
-	  }
-       
-      </style>
 <!-- basic -->
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -47,6 +35,9 @@
 <script src="/JBMorgan-Web-MVC/resources/js/bootstrap.bundle.min.js"></script>
 <script src="/JBMorgan-Web-MVC/resources/js/jquery-3.0.0.min.js"></script>
 <script src="/JBMorgan-Web-MVC/resources/js/custom.js"></script>
+
+<link rel="stylesheet" href="/JBMorgan-Web-MVC/resources/css/list.css">
+
 
 <script>
 

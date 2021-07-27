@@ -18,7 +18,7 @@ public class kakaologinProcessController implements Controller {
 		//HttpSession session = request.getSession();
 		
 		
-		// 카카오톡 로그인 선택 => 동의 => id 추출
+		// 카카오톡 로그인 선택 => 이용약관 동의 => id 추출
 		String kakao_id = request.getParameter("kakao_id");
 		
 		HttpSession session = request.getSession();
@@ -26,7 +26,7 @@ public class kakaologinProcessController implements Controller {
 		
 		memberDAO mDao = new memberDAO();
 		memberVO userVO = mDao.searchKakoId(kakao_id);
-		// userVO에 저장된 값은 아이디, 이름, 동의여부,, 비밀번호도 저장함(null인 카카오 아이디 구분하기 위해)
+		// userVO에 저장된 값은 아이디, 이름, 동의여부, 비밀번호도 저장함(null인 카카오 아이디 구분하기 위해)
 		
 		
 		if(userVO == null) {
@@ -44,7 +44,6 @@ public class kakaologinProcessController implements Controller {
 			
 			session.setAttribute("userVO", userVO);
 			
-			//패스워드를 request로 등록해서 자바스크립트(transferSuccess.jsp)에서 호출해보자
 			
 		}
 		

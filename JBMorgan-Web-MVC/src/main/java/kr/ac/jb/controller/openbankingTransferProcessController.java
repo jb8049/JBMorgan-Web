@@ -105,24 +105,30 @@ public class openbankingTransferProcessController implements Controller {
 						msg ="계좌이체에 실패했습니다.";
 					}
 					
+					url = "/bank/transferSuccess.jsp" ;
+					
 				}else {
 					
 					msg = "계좌의 잔액이 부족합니다.";
+					url ="/bank/openbankingTransferProcess.jsp";
 				}
 				
 			}else {
 				
 				msg = "계좌의 비밀번호가 틀렸습니다.";
+				url ="/bank/openbankingTransferProcess.jsp";
 			}
 			
 		}else {
 			
 			msg = "이체할 계좌가 존재하지 않습니다.";
+			url ="/bank/openbankingTransferProcess.jsp";
 		}
 		
 		request.setAttribute("msg", msg);
-
-		return "/bank/openbankingTransferProcess.jsp";
+		request.setAttribute("transaction", transaction);
+		
+		return url;
 	}
 
 }

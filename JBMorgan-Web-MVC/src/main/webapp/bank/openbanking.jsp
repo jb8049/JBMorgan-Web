@@ -32,19 +32,8 @@
       <script src="/JBMorgan-Web-MVC/resources/js/jquery-3.0.0.min.js"></script>
       <script src="/JBMorgan-Web-MVC/resources/js/custom.js"></script>
       
-    
-      <style>
+      <link rel="stylesheet" href="/JBMorgan-Web-MVC/resources/css/list.css">
       
-      td, th {
-    		padding: 5px;
-      }
-      
-      table th {
-			background-color: rgba(39, 43, 44, 0.87);;
-			color: #ffffff;
-	  }
-       
-      </style>
       
       
    </head>

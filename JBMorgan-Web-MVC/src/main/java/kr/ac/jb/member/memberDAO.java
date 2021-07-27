@@ -136,7 +136,6 @@ public class memberDAO {
 	
 	public void openBankingAgree(String id) {
 		
-		
 		StringBuilder sql = new StringBuilder();
 		sql.append(" update bank_member set ");
 		sql.append(" agreement = 'Y' where member_id =? ");
@@ -149,17 +148,11 @@ public class memberDAO {
 			
 				pstmt.setString(1, id);
 				pstmt.executeUpdate(); 
-
-				/*
-				 * if(pstmt.executeUpdate() != 0 ) { bool = true; }
-				 */
 				
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-//		 return bool;
 	}
 	
 	/**

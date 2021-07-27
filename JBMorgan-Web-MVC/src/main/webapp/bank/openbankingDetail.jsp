@@ -37,24 +37,12 @@
 <script src="/JBMorgan-Web-MVC/resources/js/custom.js"></script>
 
 <!-- Modal  -->
-<link rel="stylesheet"
+	<link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<style>
-      
-      td, th {
-    		padding: 5px;
-      }
-      
-      table th {
-			background-color: rgba(39, 43, 44, 0.87);;
-			color: #ffffff;
-	  }
-       
-      </style>
+	<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
+	<link rel="stylesheet" href="/JBMorgan-Web-MVC/resources/css/list.css">
 
 </head>
 
@@ -152,7 +140,7 @@
 					<button type="button" class="close" data-dismiss="modal"
 						style="padding-top: 5px">×</button>
 				</div>
-				<div class="modal-body">
+				<div class="modal-body" >
 
 					<table border=1px solid>
 						<tr>

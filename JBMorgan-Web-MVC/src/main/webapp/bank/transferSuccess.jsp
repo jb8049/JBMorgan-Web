@@ -17,11 +17,8 @@
 				}
 		</c:if>
 		
-		location.href ="<%= request.getContextPath()%>/bank/searchAccount.jb"
-		
+		location.href = "<%= request.getContextPath()%>/bank/openbanking.jb"
 	})
-	
-
 	
 	/* 계좌 이체를 성공한 경우에도 DB에 들릴 수 있도록 해야함, session에 등록한 msg를 remove해야하니까 */
 	// 이체가 완료되었습니다 => 비밀번호가 null인 회원이면, 

@@ -1,0 +1,13 @@
+@charset "UTF-8";
+      
+td, th {
+    padding: 5px;
+	
+	}
+      
+table th {
+	background-color: rgba(39, 43, 44, 0.87);;
+	color: #ffffff;
+	}
+	
+	

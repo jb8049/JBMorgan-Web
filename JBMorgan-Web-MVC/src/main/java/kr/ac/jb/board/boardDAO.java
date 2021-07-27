@@ -70,15 +70,13 @@ public class boardDAO {
 				board.setDepth(rs.getInt("DEPTH"));
 				board.setIndent(rs.getInt("INDENT"));
 				
-				if(rs.getInt("INDENT") !=0) {
-					title = " ㄴ" + rs.getString("TITLE");
-				}else {
-					// 들여쓰기가 0인 parent 게시글
-					title = rs.getString("TITLE");
-				}
+				/*
+				 * if(rs.getInt("INDENT") !=0) { title = " ㄴ" + rs.getString("TITLE"); }else {
+				 * // 들여쓰기가 0인 parent 게시글 title = rs.getString("TITLE"); }
+				 */
 				
 				board.setParent(rs.getInt("PARENT"));
-				board.setTitle(title);
+				board.setTitle(rs.getString("TITLE"));
 				board.setContent(rs.getString("CONTENT"));
 				board.setRegDate(rs.getString("REG_DATE"));
 				board.setId(rs.getString("MEMBER_ID"));

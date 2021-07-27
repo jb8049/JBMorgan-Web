@@ -15,8 +15,6 @@ public class kakaoRegisterController implements Controller {
 		HttpSession session = request.getSession() ;
 		String kakao_id = (String) session.getAttribute("kakao_id");
 		
-		//System.out.println("통합회원 가입 후 넘어오는 id : " + kakao_id);
-		
 		String name = request.getParameter("name") ;
 		String phone = request.getParameter("phone");
 		String email = request.getParameter("email");
