@@ -19,8 +19,6 @@ public class searchAccountController implements Controller {
 		// 로그인한 회원이 가진 계좌를 조회, balance도 볼 수 있음, 모든 계좌의 총 잔액, 즐겨찾기 기능
 		// 계좌번호 잔액 => 누르면 계좌 상세, 잔액, 거래 내역(최신 순, 거래내역 보고 즐겨찾기 가능?), 계좌 이체
 		
-		// 우선, 회원이 가지고 있는 전체 계좌를 조회한다
-		
 		List<accountVO> accountList = new ArrayList<>();
 		
 		HttpSession session = request.getSession();

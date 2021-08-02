@@ -23,7 +23,8 @@ public class openbankingController implements Controller {
 		
 		memberDAO dao = new memberDAO();
 		
-		// 오픈뱅킹 동의 o => 'Y'로 agreement를 업데이트하고, session에 있는 userVO도 업데이트해야함
+		// 오픈뱅킹 동의o => 'Y'로 agreement를 업데이트하고, session에 있는 userVO도 업데이트해야함
+		
 		dao.openBankingAgree(id);
 		
 		// 업데이트된 동의여부를 가져와서 session의 agreement를 최신화

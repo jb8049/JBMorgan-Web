@@ -18,6 +18,7 @@
 		</c:if>
 		
 		location.href = "<%= request.getContextPath()%>/bank/openbanking.jb"
+		<%-- location.href = "<%= request.getContextPath()%>/bank/searchAccount.jb" --%>
 	})
 	
 	/* 계좌 이체를 성공한 경우에도 DB에 들릴 수 있도록 해야함, session에 등록한 msg를 remove해야하니까 */

@@ -55,7 +55,8 @@
 			color: #ffffff;
 	  }
        
-      </style>
+</style>
+
 </head>
 
 <!-- body -->
@@ -124,7 +125,7 @@
 											<td><c:out value="YG" /></td>
 										</c:when>
 										<c:when test="${ list.counterpartBank eq 'S' }">
-											<td><c:out value="UpDown" /></td>
+											<td><c:out value="SeJin" /></td>
 										</c:when>
 									</c:choose>
 									<td><c:out value= "${ list.amount }" /></td>
@@ -180,7 +181,7 @@
 								<input type="radio" name="bankCode" value="J" checked="checked">JBMorgan
 								<input type="radio" name="bankCode" value="D">DonJo
 								<input type="radio" name="bankCode" value="Y">YG
-								<input type="radio" name="bankCode" value="S">UpDown
+								<input type="radio" name="bankCode" value="S">SeJin
 								</td>
 							</tr>
 							<tr>
@@ -244,7 +245,7 @@
 						</div>
 						<div class="col-md-12" align="center" style="margin-top: 10px">
 							<button type="button" data-toggle="modal" data-target="#transferModal">이체</button>
-							<button type="button" data-toggle="modal"
+							<button id="historyBtn" type="button" data-toggle="modal"
 								data-target="#historyModal">거래내역</button>
 						</div>
 					</div>
