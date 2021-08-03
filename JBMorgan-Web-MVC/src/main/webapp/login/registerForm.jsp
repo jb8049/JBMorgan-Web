@@ -164,13 +164,17 @@ $(document).ready(function(){
 	
 	$('#InputAuthNo').keyup(function(){
 		
-		// 인증번호 정확히 입력한 경우
-		if(authNo == $('#InputAuthNo').val()){
+		//keyup을 했을 때, 인증번호를 아무것도 입력하지 않은 경우 멘트 필요함
+		//인증버튼을 누르지 않아, authNo에 값이 없는 경우
+		if(authNo == ''){
+			$('#authCheck').html('문자 인증을 진행해주세요.')
+		
+		}else if(authNo == $('#InputAuthNo').val()){
 			
 			$('#authCheck').html('인증완료')
+			$('#authCheck').css({'color' : 'blue'})
 			
 		}else{
-			
 			$('#authCheck').html('인증 번호를 잘못 입력하셨습니다.')
 		}
 		
@@ -241,12 +245,11 @@ $(document).ready(function(){
 								</span>
 							</div>
 							<div class="col-md-12">
-								<span><input class="contactus" id="InputAuthNo" placeholder="authentication No" type="text" required></span>
-								<span id=authCheck style="color: red; font-size: 15px;"></span>
+								<span><input class="contactus" id="InputAuthNo" placeholder="authentication No" type="text" required style="margin-bottom: 0px;"></span>
+								<span id=authCheck style="color: red; font-size: 15px; padding-left: 15px;"></span>
 							</div>
 							<div class="col-md-12">
-								<input class="contactus" placeholder="email" type="text"
-									name="email">
+								<input class="contactus" placeholder="email" type="text" name="email" style="margin-top: 25px;">
 							</div>
 							<div class="col-md-12">
 								<!-- <button class="send_btn">회원가입</button> -->
