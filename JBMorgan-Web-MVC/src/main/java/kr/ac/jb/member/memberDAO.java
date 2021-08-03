@@ -43,6 +43,43 @@ public class memberDAO {
 
 	}
 	
+	
+	/**
+	 * 아이디 중복확인 ajax
+	 * @param id
+	 */
+	public memberVO idCheck(String id) {
+		
+		StringBuilder sql = new StringBuilder();
+		memberVO userVO = null;
+		
+		sql.append(" select member_id from bank_member where member_id=? ");
+		
+		try(	Connection conn = new ConnectionFactory().getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+			) {
+			
+			
+				pstmt.setString(1, id);
+				ResultSet rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					
+					userVO = new memberVO();
+					userVO.setId(rs.getString("member_id"));
+				}
+				
+				
+		} catch (Exception e) {
+			
+		}
+		
+		return userVO;
+		
+	}
+	
+	
+	
 	/**
 	 * login
 	 * @param member
