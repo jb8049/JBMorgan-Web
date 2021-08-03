@@ -57,6 +57,52 @@
        
 </style>
 
+
+<script>
+	
+	// 1. 거래내역 버튼을 누르면, .ajax가 실행되도록 한다
+	// 2. controller로 보내서 db처리 transactionList
+	// 3. return하는게 String인데, 이것을 param.jsp로 보낸다
+	// 4. param.jsp에 있는 전체값을 리턴한다
+	// 5. 받아온 값을 모달창에 있는 테이블에 추가하면됨
+
+	$(document).ready(function(){
+		
+		$('#historyBtn').click(function(){
+		
+			// 거래내역을 얻어올 계좌번호
+			let accountNo = $('#accountNo').html() 
+			
+			$.ajax({
+				
+				url : "<%=request.getContextPath()%>/bank/TransactionList.jb",
+				data : { accountNo : accountNo },
+				// url, data를 전달한 결과값을 받아온 result
+				// 거래내역 모달창 테이블에 들어갈 태그들이 들어가 있음
+				success : function(result){
+					
+					// table에 이미 있는 요소의 다음에 넣어주려면 append 사용하면됨, 이미 있는 요소 앞에 삽입하려면 prepend
+					
+					$("#transactionListModal").empty()
+					$("#transactionListModal").append(result)
+					
+				}, error:function(request,status,error){
+		             alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+		          }
+
+				
+			})
+			
+			
+		})
+		
+		
+		
+	})
+
+
+</script>
+
 </head>
 
 <!-- body -->
@@ -93,21 +139,21 @@
 				</div>
 
 				<div class="modal-body">
-					<c:if test="${empty transactionList}">
+					<%-- <c:if test="${empty transactionList}">
 							거래내역이 존재하지 않습니다.
 						</c:if>
-					<c:if test="${ not empty transactionList }">
-						<table border=1px solid>
-							<tr>
+					<c:if test="${ not empty transactionList }"> --%>
+						<table id="transactionListModal" border=1px solid>
+							<!-- <tr>
 								<th>거래시간</th>
 								<th>상대방 계좌</th>
 								<th>상대방 이름</th>
 								<th>유형</th>
 								<th>은행명</th>
 								<th>금액</th>
-							</tr>
+							</tr> -->
 
-							<c:forEach items="${ transactionList }" var="list">
+							<%-- <c:forEach items="${ transactionList }" var="list">
 								<tr>
 									<td><c:out value="${ list.date }" /></td>
 									<td><c:out value="${ list.counterpartAccountNo }" /></td>
@@ -130,9 +176,10 @@
 									</c:choose>
 									<td><c:out value= "${ list.amount }" /></td>
 								</tr>
-							</c:forEach>
+							</c:forEach> --%>
+							
 						</table>
-					</c:if>
+					<%-- </c:if> --%>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">확인</button>
@@ -227,7 +274,7 @@
 							<table border=1px solid style="width: 300px">
 								<tr>
 									<th width="100px">계좌번호</th>
-									<td><c:out value="${ account.acct_no }" /></td>
+									<td id="accountNo"><c:out value="${ account.acct_no }" /></td>
 								</tr>
 								<tr>
 									<th>계좌명</th>
