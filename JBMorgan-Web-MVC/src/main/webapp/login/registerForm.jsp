@@ -164,7 +164,7 @@ $(document).ready(function(){
 	
 	$('#InputAuthNo').keyup(function(){
 		
-		//keyup을 했을 때, 인증번호를 아무것도 입력하지 않은 경우 멘트 필요함
+		//keyup을 했을 때, 인증번호를 받지 않은 경우 멘트 필요함
 		//인증버튼을 누르지 않아, authNo에 값이 없는 경우
 		if(authNo == ''){
 			$('#authCheck').html('문자 인증을 진행해주세요.')
@@ -179,6 +179,56 @@ $(document).ready(function(){
 		}
 		
 	})
+	
+	
+	let emailAuthNo = ''
+	
+	$('#sendEmail').click(function(){
+		
+		
+		$.ajax({
+			
+			url : "<%=request.getContextPath()%>/login/emailAuth.jb",
+			data : { emailAddr : $('#emailAddr').val()},
+			
+			success : function(result){
+				
+				// 사용자가 올바르게 입력해야할 인증번호
+				emailAuthNo = result.trim()
+				
+				$('#authCheckModal').modal('show')
+				$('#sendEmail').val('재전송')
+				$('#sendEmail').attr('disabled',true)
+				$('#sendEmail').css({'color' : 'black', 'background-color' : 'rgb(118, 118, 118)'})
+			
+			}, error:function(request,status,error){
+	             alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+	           }
+			
+			
+		})
+		
+	})
+	
+	
+	//emailCheck 인증 여부 메세지 띄워주는 span
+	
+	$('#InputEmailAuthNo').keyup(function(){
+		
+		if(emailAuthNo == ''){
+			$('#emailCheck').html('이메일 인증을 진행해주세요.')
+		}else if( emailAuthNo == $('#InputAuthNo').val()){ // 실제 인증번호와 사용자가 입력한 인증번호가 동일한 경우
+			
+			$('#emailCheck').html('인증완료')
+			$('#emailCheck').css({'color' : 'blue'})
+			
+		}else{
+			
+			$('#emailCheck').html('인증번호를 잘못 입력하셨습니다.')
+		}
+	})
+	
+	
 	
 	
 	
@@ -249,9 +299,17 @@ $(document).ready(function(){
 								<span id=authCheck style="color: red; font-size: 15px; padding-left: 15px;"></span>
 							</div>
 							<div class="col-md-12">
-								<input class="contactus" placeholder="email" type="text" name="email" style="margin-top: 25px;">
+								<span>
+									<input class="contactus" id="emailAddr" placeholder="email" type="text" name="email" style="margin-top: 25px; float: left; width: 80%">
+									<input class="send_btn" id="sendEmail" type="button" style="width: 20%; padding-top: 20px; margin-top: 25px ;height : 71px ;float: left;" value="이메일 인증" />
+								</span>
 							</div>
+							
 							<div class="col-md-12">
+								<span><input class="contactus" id="InputEmailAuthNo" placeholder="authentication Email" type="text" required style="margin-bottom: 0px;"></span>
+								<span id=emailCheck style="color: red; font-size: 15px; padding-left: 15px;"></span>
+							</div>
+							<div class="col-md-12" style="margin-top: 25px;">
 								<!-- <button class="send_btn">회원가입</button> -->
 								<input class="send_btn" type="submit" value="회원가입" />
 							</div>
