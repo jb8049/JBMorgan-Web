@@ -60,12 +60,7 @@
 
 <script>
 	
-	// 1. 거래내역 버튼을 누르면, .ajax가 실행되도록 한다
-	// 2. controller로 보내서 db처리 transactionList
-	// 3. return하는게 String인데, 이것을 param.jsp로 보낸다
-	// 4. param.jsp에 있는 전체값을 리턴한다
-	// 5. 받아온 값을 모달창에 있는 테이블에 추가하면됨
-
+	
 	$(document).ready(function(){
 		
 		$('#historyBtn').click(function(){
@@ -85,6 +80,9 @@
 					
 					$("#transactionListModal").empty()
 					$("#transactionListModal").append(result)
+					
+					// ajax로 불러온 뒤, 불러온 jsp 태그를 인식할 수 있음
+					// 가져오기 전에 c태그에 style로 변경해서 가져오기
 					
 				}, error:function(request,status,error){
 		             alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
@@ -139,47 +137,9 @@
 				</div>
 
 				<div class="modal-body">
-					<%-- <c:if test="${empty transactionList}">
-							거래내역이 존재하지 않습니다.
-						</c:if>
-					<c:if test="${ not empty transactionList }"> --%>
 						<table id="transactionListModal" border=1px solid>
-							<!-- <tr>
-								<th>거래시간</th>
-								<th>상대방 계좌</th>
-								<th>상대방 이름</th>
-								<th>유형</th>
-								<th>은행명</th>
-								<th>금액</th>
-							</tr> -->
-
-							<%-- <c:forEach items="${ transactionList }" var="list">
-								<tr>
-									<td><c:out value="${ list.date }" /></td>
-									<td><c:out value="${ list.counterpartAccountNo }" /></td>
-									<td><c:out value="${ list.counterpartName }" /></td>
-									<td><c:out value="${ list.type }"/></td>
-									
-									<c:choose>
-										<c:when test="${ list.counterpartBank eq 'J' }">
-											<td><c:out value="JBMorgan" /></td>
-										</c:when>
-										<c:when test="${ list.counterpartBank eq 'D' }"> 
-											<td><c:out value="DonJo" /></td>
-										</c:when>
-										<c:when test="${ list.counterpartBank eq 'Y' }">
-											<td><c:out value="YG" /></td>
-										</c:when>
-										<c:when test="${ list.counterpartBank eq 'S' }">
-											<td><c:out value="SeJin" /></td>
-										</c:when>
-									</c:choose>
-									<td><c:out value= "${ list.amount }" /></td>
-								</tr>
-							</c:forEach> --%>
-							
+							<!-- ajax로 불러온 정보 출력  -->
 						</table>
-					<%-- </c:if> --%>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">확인</button>

@@ -35,8 +35,8 @@ public class EmailAuthController implements Controller {
 		//서버 정보 설정
 		Properties prop = new Properties();
 		prop.put("mail.smtp.host", "smtp.gmail.com");
-		prop.put("mail.smtp.port", 465); 
-        prop.put("mail.smtp.auth", "true"); 
+		prop.put("mail.smtp.port", "465"); 
+        prop.put("mail.smtp.auth", "true");
         prop.put("mail.smtp.ssl.enable", "true"); 
         prop.put("mail.smtp.ssl.trust", "smtp.gmail.com");
         
@@ -49,7 +49,9 @@ public class EmailAuthController implements Controller {
         try {
             MimeMessage message = new MimeMessage(session);
             message.setFrom(new InternetAddress(mail_id));
-
+            
+            session.setDebug(true);
+            
             //수신자 메일 주소
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(emailAddr)); 
 

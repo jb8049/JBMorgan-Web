@@ -35,47 +35,141 @@
 
 
 <script>
+
+
+let checkId = false; 
+let checkEmail = false;
+let checkSms = false;
+
        	function doRegister(){
        		
        		let r = document.registerForm
        		
-       		if(r.id.value == '' ){
+       		 if(r.id.value == '' ){
        			
-       			alert('아이디를 입력하세요.')
-    			r.id.focus()
+       			$('#TestModal').modal('show');
+				$('#modal-body').html('아이디를 입력하세요.')
+				
     			return false
+       		}
+       		
+       		if(!checkId){
+       			
+       			$('#TestModal').modal('show');
+       			$('#modal-body').html('아이디 중복체크를 해주세요.')
+       			
+       			return false
+       			
        		}
        		
        		if(r.password.value ==''){
        			
-       			alert('패스워드를 입력하세요.')
-       			r.password.focus()
+       			$('#TestModal').modal('show');
+				$('#modal-body').html('패스워드를 입력하세요.')
        			return false      				
        			
        		}
        		
+       		
+			if(r.ssnf.value =='') {
+				
+				$('#TestModal').modal('show');
+				// modal-body의 <p>태그에 원하는 메세지 삽입
+				$('#modal-body').html('주민번호 앞자리를 입력하세요.')
+				
+				return false
+			}
+			
+			if(r.ssnb.value =='') {
+				
+				$('#TestModal').modal('show');
+				$('#modal-body').html('주민번호 뒷자리를 입력하세요.')
+				
+				return false
+			}
+       		
 			if(r.name.value ==''){
        			
-       			alert('이름을 입력하세요.')
-       			r.name.focus()
+				$('#TestModal').modal('show');
+				$('#modal-body').html('이름을 입력하세요.')
        			return false
        		}
 			
 			if(r.phone.value ==''){
        			
-       			alert('전화번호를 입력하세요.')
-       			r.phone.focus()
+				$('#TestModal').modal('show');
+				$('#modal-body').html('전화번호를 입력하세요.')
        			return false
        			
        		}
-       		
+			
+		
+			/* if($('#authCheck').val() == '인증필요'){
+				
+				$('#TestModal').modal('show')
+				$('#modal-body').html('문자 인증을 진행해주세요.')
+				return false
+				
+			}
+			
+			if($('#authCheck').val() == '인증실패'){
+				
+				$('#TestModal').modal('show')
+				$('#modal-body').html('문자 인증번호를 잘못 입력하셨습니다.')
+				return false
+				
+			} */
+			
 			if(r.email.value ==''){
 		
-				alert('이메일을 입력하세요.')
-				r.email.focus()
+				$('#TestModal').modal('show');
+				$('#modal-body').html('이메일 주소를 입력하세요.')
 				return false
 			}
+			
+			/* if($('#emailCheck').val() == '인증필요'){
+				
+				$('#TestModal').modal('show')
+				$('#modal-body').html('이메일 인증을 진행해주세요.')
+				return false
+				
+			}
+			
+			if($('#emailCheck').val() == '인증실패'){
+				
+				$('#TestModal').modal('show')
+				$('#modal-body').html('이메일 인증번호를 잘못 입력하셨습니다.')
+				return false
+				
+			} */
+			
+			
+			// 문자열 비교x, 체크 하는 부분을 true, false로
+			
+			if(!checkId){  // 아이디 중복체크를 완료하면, checkId가 true가 됨
        			
+       			$('#TestModal').modal('show');
+       			$('#modal-body').html('아이디 중복체크를 해주세요.')
+       			
+       			return false
+       			
+       		}
+			
+			if(!checkSms){
+				$('#TestModal').modal('show')
+				$('#modal-body').html('전화번호를 인증하세요.')
+				return false
+			}
+			
+			if(!checkEmail){
+				
+				$('#TestModal').modal('show')
+				$('#modal-body').html('이메일 인증하세요.')
+				
+				return false
+				
+			}
+			
        		return true
        	}
       
@@ -104,8 +198,8 @@ $(document).ready(function(){
 						
 						$('#idCheck').val('사용가능')
 						$('#idCheck').attr('disabled', true)
-						
 						$('#idCheck').css({'color' : 'black', 'background-color' : 'rgb(118, 118, 118)'})
+						checkId = true;
 						
 					}else{
 						// modal 수동 호출
@@ -168,14 +262,19 @@ $(document).ready(function(){
 		//인증버튼을 누르지 않아, authNo에 값이 없는 경우
 		if(authNo == ''){
 			$('#authCheck').html('문자 인증을 진행해주세요.')
-		
+			$('#authCheck').val('인증필요')
+			
 		}else if(authNo == $('#InputAuthNo').val()){
 			
 			$('#authCheck').html('인증완료')
+			$('#authCheck').val('인증완료')
 			$('#authCheck').css({'color' : 'blue'})
+			checkSms = true;
 			
 		}else{
 			$('#authCheck').html('인증 번호를 잘못 입력하셨습니다.')
+			$('#authCheck').val('인증실패')
+			
 		}
 		
 	})
@@ -212,19 +311,28 @@ $(document).ready(function(){
 	
 	
 	//emailCheck 인증 여부 메세지 띄워주는 span
-	
 	$('#InputEmailAuthNo').keyup(function(){
 		
 		if(emailAuthNo == ''){
+			
+			//span태그안에 넣어서 값을 나타내려면 .html로 넣어야했음
+			//인증 유무에 따라 onsubmit()에서 분기해주려고 하니까 .html로 조건문이 안됐음
+			//그래서 .val에 넣어서 if == '인증필요' 이런식으로 분기함, #emailCheck에 .val만 넣으니까 값은 안나타남 
 			$('#emailCheck').html('이메일 인증을 진행해주세요.')
-		}else if( emailAuthNo == $('#InputAuthNo').val()){ // 실제 인증번호와 사용자가 입력한 인증번호가 동일한 경우
+			$('#emailCheck').val('인증필요')  
+			
+		}else if( emailAuthNo == $('#InputEmailAuthNo').val()){ // 실제 인증번호와 사용자가 입력한 인증번호가 동일한 경우
 			
 			$('#emailCheck').html('인증완료')
+			$('#emailCheck').val('인증완료')
 			$('#emailCheck').css({'color' : 'blue'})
+			checkEmail = true;
+			
 			
 		}else{
 			
 			$('#emailCheck').html('인증번호를 잘못 입력하셨습니다.')
+			$('#emailCheck').val('인증실패')
 		}
 	})
 	
@@ -278,9 +386,7 @@ $(document).ready(function(){
 								<input class="contactus" placeholder="password" type="password"
 									name="password">
 							</div>
-							<span class="col-md-12"> <input class="contactus"
-								style="width: 50%; float: left" placeholder="SSN-Front"
-								type="text" name="ssnf"> <input class="contactus"
+							<span class="col-md-12"> <input class="contactus" style="width: 50%; float: left" placeholder="SSN-Front" type="text" name="ssnf"> <input class="contactus"
 								style="width: 50%; float: left" placeholder="SSN-Back"
 								type="password" name="ssnb">
 							</span>
@@ -310,7 +416,6 @@ $(document).ready(function(){
 								<span id=emailCheck style="color: red; font-size: 15px; padding-left: 15px;"></span>
 							</div>
 							<div class="col-md-12" style="margin-top: 25px;">
-								<!-- <button class="send_btn">회원가입</button> -->
 								<input class="send_btn" type="submit" value="회원가입" />
 							</div>
 						</div>
@@ -368,6 +473,28 @@ $(document).ready(function(){
 	</div>
 	
 	
+	<!-- Test modal -->
+	<div class="modal fade" id="TestModal" role="dialog" style="text-align: center;">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+
+				<div class="modal-header">
+					<!-- <button type="button" class="close" data-dismiss="modal"
+						style="padding-top: 5px">×</button> -->
+				</div>
+
+				<div class="modal-body" id="modal-body">
+						<p></p>
+				</div>
+				
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">확인</button>
+				</div>
+			</div>
+		</div>
+	</div>
 	
 	
 	

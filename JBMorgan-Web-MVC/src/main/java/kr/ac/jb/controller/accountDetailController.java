@@ -24,6 +24,7 @@ public class accountDetailController implements Controller {
 //		List<transactionVO> transactionList = tDao.searchJBMorganTransaction(acct_no);
 //		
 //		request.setAttribute("transactionList", transactionList);
+		
 		request.setAttribute("account", account);
 		
 		return "/bank/accountDetail.jsp";

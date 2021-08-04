@@ -179,5 +179,36 @@ public class boardDAO {
 		}
 		
 	}
+	
+	/**
+	 * 게시판 총 레코드 개수 반환
+	 */
+	public int getTotalRecord() {
+		
+		int totalRecord = 0;
+		
+		StringBuilder sql = new StringBuilder();
+		
+		sql.append(" select count(*) as totalRecord from bank_board ");
+		
+		try (	Connection conn = new ConnectionFactory().getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(sql.toString());) {
+			
+			ResultSet rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				
+				totalRecord = rs.getInt("totalRecord");
+			}
+				
+			
 
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+	
+		
+		return totalRecord ;
+	}
 }
