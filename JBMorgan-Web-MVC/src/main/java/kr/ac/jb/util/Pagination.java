@@ -47,8 +47,8 @@ public class Pagination {
 	
 	//선택한 페이지의 시작하는 글번호
 	public int getStartRow(int curPage, int rowSize) {
-		// 한 페이지에 5개의 글씩 보여준다 => 1~5번 레코드 1페이지에서 보여줫음
-		// 2페이지에서 6~10 레코드를 2페이지에서 보여줘야함
+		// 한 페이지에 10개의 글씩 보여준다 => 1~10번 레코드 1페이지에서 보여줫음
+		// 2페이지에서 11~20 레코드를 2페이지에서 보여줘야함
 		return (curPage - 1) * rowSize + 1;
 	}
 	

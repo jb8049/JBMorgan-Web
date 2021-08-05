@@ -189,7 +189,6 @@ ul.pageNo li > .other.Page:hover{
 				</c:otherwise>
 			</c:choose>
 			
-			
 			<c:forEach begin="${ startPage }" end = "${ endPage }" var="i">
 					
 					<c:choose>
@@ -197,7 +196,7 @@ ul.pageNo li > .other.Page:hover{
 							<li>
 								<a class="present Page"  href="<%= request.getContextPath()%>/board/boardList.jb?page=${i}">[${i}]</a>
 							</li>
-						</c:when>
+						</c:when> 
 						<c:otherwise>
 							<li>
 								<a class="other Page" href="<%= request.getContextPath()%>/board/boardList.jb?page=${i}">[${i}]</a>

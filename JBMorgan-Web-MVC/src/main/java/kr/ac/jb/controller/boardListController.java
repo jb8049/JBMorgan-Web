@@ -28,7 +28,7 @@ public class boardListController implements Controller {
 		
 		boardDAO dao = new boardDAO();
 		
-		// 레코드 총 개수(게시판에 기록된 게시글 총 개수)
+		// 총 레코드 개수 (게시판에 기록된 게시글 총 개수)
 		int totalRow = dao.getTotalRecord();
 		
 		// 시작, 현재 페이지, 페이지에 들어오면 1페이지부터 보여주니까
@@ -42,7 +42,6 @@ public class boardListController implements Controller {
 		
 		// 총 레코드 개수와 현재 페이지, 생성자를 활용해 필요한 정보 셋팅
 		Pagination pagination = new Pagination(totalRow, curPage);
-		
 		
 		// 총 페이지 수
 		int totalPage = pagination.getTotalPage();
@@ -61,13 +60,14 @@ public class boardListController implements Controller {
 		int startPage = pagination.getStartPage();
 		int endPage = pagination.getEndPage();
 		
+		// 사용자가 선택한 페이지의 블록
 		request.setAttribute("startPage", startPage);
 		request.setAttribute("endPage", endPage);
 		
 		// 총 페이지 수에 따른 Prev, Next 버튼 활성화를 위해
 		request.setAttribute("totalPage", totalPage);
 		
-		// 내가 선택한 현재 페이지에 표시해주기 위해
+		// 내가 선택한 현재 페이지 표시해주기 위해
 		request.setAttribute("curPage", curPage);
 		
 		return "/board/boardList.jsp";
