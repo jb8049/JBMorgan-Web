@@ -56,11 +56,41 @@ table th {
 	background-color: rgba(39, 43, 44, 0.87);;
 	color: rgba(39, 43, 44, 0.87);
 	}
-	
-ul.pageNo li > .presentPage{   /*pageNo 클래스를 가진 ul, ul 아래에 있는 li li하위에 있는 클래스가 presentPage인 것 */
 
-	color: red;	
+ul.pageNo {
+  text-align: center; 
+  font-size: large;
+  cursor: default;
+  list-style: none;
+  }
+ 
+ul.pageNo li {
+  display: inline-block;
+  padding-left: 0;
+  vertical-align: middle;
+  
 }
+
+ul.pageNo li > .present.Page{
+	color: red;
+  }
+  
+ul.pageNo li > .other.Page:hover{
+	color: blue;
+}
+
+#addBtn{
+	font-size: large;
+	background-color: rgba(39, 43, 44, 0.87);;
+	color: rgba(255, 255, 255, 0.87);
+
+}
+
+
+
+
+}
+
 
 
 }
@@ -167,7 +197,7 @@ ul.pageNo li > .presentPage{   /*pageNo 클래스를 가진 ul, ul 아래에 있
 				</c:when>
 				<c:otherwise>
 					<li>	
-						<a href="<%= request.getContextPath()%>/board/boardList.jb?page=${ endPage - 5}">Prev</a>
+						<a href="<%= request.getContextPath()%>/board/boardList.jb?page=${ startPage - 5}">Prev</a>
 					</li>
 				</c:otherwise>
 			</c:choose>
@@ -178,12 +208,12 @@ ul.pageNo li > .presentPage{   /*pageNo 클래스를 가진 ul, ul 아래에 있
 					<c:choose>
 						<c:when test="${curPage eq i }">
 							<li>
-								<a class="presentPage"  href="<%= request.getContextPath()%>/board/boardList.jb?page=${i}">[${i}]</a>
+								<a class="present Page"  href="<%= request.getContextPath()%>/board/boardList.jb?page=${i}">[${i}]</a>
 							</li>
 						</c:when>
 						<c:otherwise>
 							<li>
-								<a class="otherPage" href="<%= request.getContextPath()%>/board/boardList.jb?page=${i}">[${i}]</a>
+								<a class="other Page" href="<%= request.getContextPath()%>/board/boardList.jb?page=${i}">[${i}]</a>
 							</li>
 						</c:otherwise>
 					</c:choose>

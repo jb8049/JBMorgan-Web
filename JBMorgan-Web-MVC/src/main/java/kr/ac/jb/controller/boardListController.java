@@ -64,9 +64,9 @@ public class boardListController implements Controller {
 		request.setAttribute("startPage", startPage);
 		request.setAttribute("endPage", endPage);
 		
-		// 총 페이지 수 저장할 필요 있을까? => 총 페이지 수에 따른 Prev, Next 버튼 활성화
+		// 총 페이지 수에 따른 Prev, Next 버튼 활성화를 위해
 		request.setAttribute("totalPage", totalPage);
-		
+		// 내가 선택한 현재 페이지에 표시해주기 위해
 		request.setAttribute("curPage", curPage);
 		
 		return "/board/boardList.jsp";
