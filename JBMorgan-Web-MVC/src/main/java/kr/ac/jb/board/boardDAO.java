@@ -21,7 +21,7 @@ public class boardDAO {
 		StringBuilder sql = new StringBuilder();
 
 		sql.append(" insert into bank_board ");
-		sql.append(" (BOARD_NO, GROUP_NO, DEPTH, INDENT, PARENT, TITLE, CONTENT, MEMBER_ID) ");
+		sql.append(" (BOARD_NO, GROUP_NO, DEPTH, INDENT, PARENT_no, TITLE, CONTENT, MEMBER_ID) ");
 		sql.append(" values(BOARD_SEQ.nextval, BOARD_SEQ.nextval,0,0,0,?,?,?) ");
 
 		try (Connection conn = new ConnectionFactory().getConnection();
@@ -42,59 +42,117 @@ public class boardDAO {
 	}
 	
 	/**
-	 * 게시판 리스트 조회
+	 * 게시판 리스트 조회(페이징 전) 
 	 * @return
 	 */
 	
-	public List<boardVO> searchBoardList() {
+//	public List<boardVO> searchBoardList() {
+//		
+//		String title ="";
+//		List<boardVO> boardList = new ArrayList<>();
+//		StringBuilder sql = new StringBuilder();
+//
+//		sql.append(" select BOARD_NO, GROUP_NO, DEPTH, INDENT, PARENT, TITLE, CONTENT, to_char(REG_DATE,'yyyy-mm-dd') as REG_DATE, MEMBER_ID ");
+//		sql.append(" from bank_board ");
+//		sql.append(" order by GROUP_NO desc, DEPTH asc ");
+//
+//		try (	Connection conn = new ConnectionFactory().getConnection();
+//				PreparedStatement pstmt = conn.prepareStatement(sql.toString());) {
+//
+//			ResultSet rs = pstmt.executeQuery();
+//			
+//			while(rs.next()) {
+//				
+//				boardVO board = new boardVO();
+//				
+//				board.setBoardNo(rs.getInt("BOARD_NO"));
+//				board.setGroupNo(rs.getInt("GROUP_NO"));
+//				board.setDepth(rs.getInt("DEPTH"));
+//				board.setIndent(rs.getInt("INDENT"));
+//				
+//				/*
+//				 * if(rs.getInt("INDENT") !=0) { title = " ㄴ" + rs.getString("TITLE"); }else {
+//				 * // 들여쓰기가 0인 parent 게시글 title = rs.getString("TITLE"); }
+//				 */
+//				
+//				board.setParent(rs.getInt("PARENT"));
+//				board.setTitle(rs.getString("TITLE"));
+//				board.setContent(rs.getString("CONTENT"));
+//				board.setRegDate(rs.getString("REG_DATE"));
+//				board.setId(rs.getString("MEMBER_ID"));
+//				
+//				boardList.add(board);
+//				
+//			}
+//			
+//
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//
+//		}
+//		
+//		
+//		
+//		return boardList;
+//	}
+	
+	/**
+	 * paging 적용 후 게시판 조회
+	 * @param startRow 페이지별 시작 레코드와 끝 레코드를 받아서 게시판 조회
+	 * @param endRow
+	 * @return List<boardVO>
+	 */
+	public List<boardVO> boardListPaging(int startRow, int endRow){
 		
-		String title ="";
-		List<boardVO> boardList = new ArrayList<>();
 		StringBuilder sql = new StringBuilder();
-
-		sql.append(" select BOARD_NO, GROUP_NO, DEPTH, INDENT, PARENT, TITLE, CONTENT, to_char(REG_DATE,'yyyy-mm-dd') as REG_DATE, MEMBER_ID ");
-		sql.append(" from bank_board ");
-		sql.append(" order by GROUP_NO desc, DEPTH asc ");
-
-		try (	Connection conn = new ConnectionFactory().getConnection();
-				PreparedStatement pstmt = conn.prepareStatement(sql.toString());) {
-
-			ResultSet rs = pstmt.executeQuery();
+		List<boardVO> boardList = new ArrayList<>();
+		sql.append(" SELECT * FROM ");
+		sql.append("(SELECT ROWNUM AS RECORD_NO, BOARD_NO ,GROUP_NO, DEPTH, INDENT , parent_no , ");
+		sql.append(" MEMBER_ID ,TITLE ,CONTENT ,REG_DATE ");
+		sql.append(" FROM bank_board ");
+		sql.append(" START WITH parent_no = 0 ");
+		sql.append(" CONNECT BY PRIOR board_no = parent_no ");
+		sql.append(" ORDER SIBLINGS BY group_no DESC )WHERE RECORD_NO BETWEEN ? AND ? ");
+		
+		
+		try(
+				Connection conn = new ConnectionFactory().getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+				) {
 			
-			while(rs.next()) {
+				int loc = 1;
+				pstmt.setInt(loc++, startRow);
+				pstmt.setInt(loc++, endRow);
 				
-				boardVO board = new boardVO();
+				ResultSet rs = pstmt.executeQuery();
 				
-				board.setBoardNo(rs.getInt("BOARD_NO"));
-				board.setGroupNo(rs.getInt("GROUP_NO"));
-				board.setDepth(rs.getInt("DEPTH"));
-				board.setIndent(rs.getInt("INDENT"));
-				
-				/*
-				 * if(rs.getInt("INDENT") !=0) { title = " ㄴ" + rs.getString("TITLE"); }else {
-				 * // 들여쓰기가 0인 parent 게시글 title = rs.getString("TITLE"); }
-				 */
-				
-				board.setParent(rs.getInt("PARENT"));
-				board.setTitle(rs.getString("TITLE"));
-				board.setContent(rs.getString("CONTENT"));
-				board.setRegDate(rs.getString("REG_DATE"));
-				board.setId(rs.getString("MEMBER_ID"));
-				
-				boardList.add(board);
-				
-			}
+				while(rs.next()) {
+					
+					boardVO board = new boardVO();
+					
+					board.setBoardNo(rs.getInt("BOARD_NO"));
+					board.setGroupNo(rs.getInt("GROUP_NO"));
+					board.setDepth(rs.getInt("DEPTH"));
+					board.setIndent(rs.getInt("INDENT"));
+					board.setParent(rs.getInt("parent_no"));
+					board.setId(rs.getString("MEMBER_ID"));
+					board.setTitle(rs.getString("TITLE"));
+					board.setContent(rs.getString("CONTENT"));
+					board.setRegDate(rs.getString("REG_DATE"));
+					
+					boardList.add(board);
+					
+				}
 			
-
 		} catch (Exception e) {
 			e.printStackTrace();
-
 		}
 		
-		
-		
 		return boardList;
+		
 	}
+	
+	
 	
 	/**
 	 * 게시글 상세
@@ -110,7 +168,7 @@ public class boardDAO {
 		List<boardVO> boardList = new ArrayList<>();
 		StringBuilder sql = new StringBuilder();
 
-		sql.append(" select BOARD_NO, GROUP_NO, DEPTH, INDENT, PARENT, TITLE, CONTENT, ");
+		sql.append(" select BOARD_NO, GROUP_NO, DEPTH, INDENT, PARENT_no, TITLE, CONTENT, ");
 		sql.append(" to_char(REG_DATE,'yyyy-mm-dd') as REG_DATE, MEMBER_ID from bank_board where board_no =? ");
 		
 		
@@ -127,7 +185,7 @@ public class boardDAO {
 				board.setGroupNo(rs.getInt("GROUP_NO"));
 				board.setDepth(rs.getInt("DEPTH"));
 				board.setIndent(rs.getInt("INDENT"));
-				board.setParent(rs.getInt("PARENT"));
+				board.setParent(rs.getInt("PARENT_no"));
 				board.setTitle(rs.getString("TITLE"));
 				board.setContent(rs.getString("CONTENT"));
 				board.setRegDate(rs.getString("REG_DATE"));
@@ -156,7 +214,7 @@ public class boardDAO {
 		
 		StringBuilder sql = new StringBuilder();
 		
-		sql.append(" insert into bank_board (BOARD_NO, GROUP_NO, DEPTH, INDENT, PARENT, TITLE, CONTENT, MEMBER_ID) ");
+		sql.append(" insert into bank_board (BOARD_NO, GROUP_NO, DEPTH, INDENT, PARENT_no, TITLE, CONTENT, MEMBER_ID) ");
 		sql.append(" values(BOARD_SEQ.nextval,? ,? ,? ,? ,? ,? ,?) ");
 		
 		try (Connection conn = new ConnectionFactory().getConnection();

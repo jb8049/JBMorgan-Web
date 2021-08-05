@@ -36,10 +36,12 @@
 
 <script>
 
-
-let checkId = false; 
-let checkEmail = false;
+let checkId = false; // 중복확인 성공하면 true로 변경
 let checkSms = false;
+let checkEmail = false;
+
+
+
 
        	function doRegister(){
        		
@@ -53,14 +55,7 @@ let checkSms = false;
     			return false
        		}
        		
-       		if(!checkId){
-       			
-       			$('#TestModal').modal('show');
-       			$('#modal-body').html('아이디 중복체크를 해주세요.')
-       			
-       			return false
-       			
-       		}
+       		
        		
        		if(r.password.value ==''){
        			
@@ -146,7 +141,7 @@ let checkSms = false;
 			
 			// 문자열 비교x, 체크 하는 부분을 true, false로
 			
-			if(!checkId){  // 아이디 중복체크를 완료하면, checkId가 true가 됨
+			if(!checkId){
        			
        			$('#TestModal').modal('show');
        			$('#modal-body').html('아이디 중복체크를 해주세요.')
@@ -155,7 +150,7 @@ let checkSms = false;
        			
        		}
 			
-			if(!checkSms){
+			if(!checkSms){ // 전화번호 인증을 완료하면(성공하면) checkSms가 true가 됨
 				$('#TestModal').modal('show')
 				$('#modal-body').html('전화번호를 인증하세요.')
 				return false
@@ -199,7 +194,7 @@ $(document).ready(function(){
 						$('#idCheck').val('사용가능')
 						$('#idCheck').attr('disabled', true)
 						$('#idCheck').css({'color' : 'black', 'background-color' : 'rgb(118, 118, 118)'})
-						checkId = true;
+						checkId = true; // 아이디 중복체크를 성공하는 경우, false로 되어있는 checkId를 변경함
 						
 					}else{
 						// modal 수동 호출
@@ -251,9 +246,6 @@ $(document).ready(function(){
 		})
 		
 		
-		
-		
-		
 	}) 
 	
 	$('#InputAuthNo').keyup(function(){
@@ -262,18 +254,18 @@ $(document).ready(function(){
 		//인증버튼을 누르지 않아, authNo에 값이 없는 경우
 		if(authNo == ''){
 			$('#authCheck').html('문자 인증을 진행해주세요.')
-			$('#authCheck').val('인증필요')
+			//$('#authCheck').val('인증필요')
 			
 		}else if(authNo == $('#InputAuthNo').val()){
 			
 			$('#authCheck').html('인증완료')
-			$('#authCheck').val('인증완료')
+			//$('#authCheck').val('인증완료')
 			$('#authCheck').css({'color' : 'blue'})
-			checkSms = true;
+			checkSms = true; //인증완료 했을 때만 true로 바꾸면된다.. 나머지 일 때는 false로 두면 됨...
 			
 		}else{
 			$('#authCheck').html('인증 번호를 잘못 입력하셨습니다.')
-			$('#authCheck').val('인증실패')
+			//$('#authCheck').val('인증실패')
 			
 		}
 		
@@ -319,12 +311,12 @@ $(document).ready(function(){
 			//인증 유무에 따라 onsubmit()에서 분기해주려고 하니까 .html로 조건문이 안됐음
 			//그래서 .val에 넣어서 if == '인증필요' 이런식으로 분기함, #emailCheck에 .val만 넣으니까 값은 안나타남 
 			$('#emailCheck').html('이메일 인증을 진행해주세요.')
-			$('#emailCheck').val('인증필요')  
+			//$('#emailCheck').val('인증필요')  
 			
 		}else if( emailAuthNo == $('#InputEmailAuthNo').val()){ // 실제 인증번호와 사용자가 입력한 인증번호가 동일한 경우
 			
 			$('#emailCheck').html('인증완료')
-			$('#emailCheck').val('인증완료')
+			//$('#emailCheck').val('인증완료')
 			$('#emailCheck').css({'color' : 'blue'})
 			checkEmail = true;
 			
@@ -332,7 +324,7 @@ $(document).ready(function(){
 		}else{
 			
 			$('#emailCheck').html('인증번호를 잘못 입력하셨습니다.')
-			$('#emailCheck').val('인증실패')
+			//$('#emailCheck').val('인증실패')
 		}
 	})
 	

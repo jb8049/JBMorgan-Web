@@ -33,7 +33,7 @@ public class SmsAuthController implements Controller {
 //	    params.put("to", "01000000000"); // 수신번호
 //	    params.put("from", "01000000000"); // 발신번호
 //	    params.put("type", "SMS"); // Message type ( SMS, LMS, MMS, ATA )
-//	    params.put("text", "Test Message"); // 문자내용    
+//	    params.put("text", "Test Message"); // 문자내용
 //	    params.put("app_version", "JAVA SDK v1.2"); // application name and version(필수아님)
 		
 	    HashMap<String, String> params = new HashMap<String,String>();

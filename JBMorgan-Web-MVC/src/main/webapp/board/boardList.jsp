@@ -56,7 +56,16 @@ table th {
 	background-color: rgba(39, 43, 44, 0.87);;
 	color: rgba(39, 43, 44, 0.87);
 	}
+	
+ul.pageNo li > .presentPage{   /*pageNo 클래스를 가진 ul, ul 아래에 있는 li li하위에 있는 클래스가 presentPage인 것 */
+
+	color: red;	
 }
+
+
+}
+
+
 
 </style>
 
@@ -71,10 +80,7 @@ table th {
 		})
 	})
 	
-	
 </script>
-
-
 
 
 </head>
@@ -96,7 +102,7 @@ table th {
 	<!-- end header -->
 
 	<!-- contact -->
-	<div class="contact" >
+	<div class="contact" style="padding-bottom: 10px" >
 		<div class="container">
 			<div class="row ">
 				<div class="col-md-8 offset-md-2">
@@ -148,8 +154,68 @@ table th {
 			</div>
 		</div>
 	</div>
+	
+	<!-- 넘겨주는 정보가 페이지의 번호 => Controller로 보내야함  -->
+	<!-- 블록별 시작페이지 , 끝 페이지   -->
+	<!-- 페이징  -->
+	<div style="text-align: center; ">
+		
+		<ul class="pageNo">
+			<c:choose>
+				<c:when test="${endPage eq 5 }">
+					<button disabled="disabled">Prev</button>
+				</c:when>
+				<c:otherwise>
+					<li>	
+						<a href="<%= request.getContextPath()%>/board/boardList.jb?page=${ endPage - 5}">Prev</a>
+					</li>
+				</c:otherwise>
+			</c:choose>
+			
+			
+			<c:forEach begin="${ startPage }" end = "${ endPage }" var="i">
+					
+					<c:choose>
+						<c:when test="${curPage eq i }">
+							<li>
+								<a class="presentPage"  href="<%= request.getContextPath()%>/board/boardList.jb?page=${i}">[${i}]</a>
+							</li>
+						</c:when>
+						<c:otherwise>
+							<li>
+								<a class="otherPage" href="<%= request.getContextPath()%>/board/boardList.jb?page=${i}">[${i}]</a>
+							</li>
+						</c:otherwise>
+					</c:choose>
+					
+					
+			</c:forEach>
+			
+			
+			<c:choose>
+				<c:when test="${ endPage eq totalPage }" >
+					<button disabled="disabled">Next</button>
+				</c:when>
+				<c:otherwise>
+					<li>	
+						<a href="<%= request.getContextPath()%>/board/boardList.jb?page=${ startPage + 5}">Next</a>
+					</li>
+				</c:otherwise>
+			</c:choose>
+			
+			
+			
+			
+		</ul>
+	
+	</div>
+	
+	
+
+	
 	<!-- contact -->
 
+	
 	<!-- footer -->
 	<footer>
 		<jsp:include page="/include/bottom.jsp" />
