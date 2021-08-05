@@ -114,6 +114,9 @@ public class boardDAO {
 		sql.append(" CONNECT BY PRIOR board_no = parent_no ");
 		sql.append(" ORDER SIBLINGS BY group_no DESC )WHERE RECORD_NO BETWEEN ? AND ? ");
 		
+//		ORDER SIBLINGS BY GROUP_NO DESC 최신글, GROUP_NO가 큰 순으로 출력
+//		parent_no가 0인 것부터 나오도록 함
+//		board_no = parent_no => 처음 출력된 게시글의 board_no와 같은 parent_no를 가지는 행을 다음으로 출력
 		
 		try(
 				Connection conn = new ConnectionFactory().getConnection();

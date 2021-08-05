@@ -2,8 +2,8 @@ package kr.ac.jb.util;
 
 public class Pagination {
 
-	private int rowSize = 10; // 한 페이지 글 개수
-	private int blockSize = 5; // 페이지 블록 개수
+	private int rowSize = 10; // 한 페이지 글 개수, page 당 10개 출력
+	private int blockSize = 5; // 페이지 블록 개수, 5page씩 출력
 	private int curPage; // 현재 페이지
 	private int totalRow; // 전체 레코드 개수
 	
@@ -13,8 +13,8 @@ public class Pagination {
 	private int endRow; // 페이지별 끝 글 번호
 	private int curBlock; // 사용자가 현재 속한 블록
 	
-	// [1] [2] [3] [4] [5] => 이게 1번 째 블록
-	// [6] [7] [8] [9] [10] => 이게 2번 째 블록
+	// [1] [2] [3] [4] [5] => 1번 째 블록
+	// [6] [7] [8] [9] [10] => 2번 째 블록
  	
 	private int startPage; // 블록별 시작 페이지
 	private int endPage; // 블록별 끝 페이지
@@ -24,14 +24,16 @@ public class Pagination {
 		
 	}
 
-	
+	// 총 게시글 수, 사용자가 속한 페이지를 받음
 	public Pagination(int totalRow, int curPage) {
 		
 		this.totalRow = totalRow;
 		this.curPage = curPage;
-		// 생성자에서 받아온 curPage(현재 페이지), startRow는 시작할 레코드
+		
 		this.startRow = getStartRow(this.curPage, rowSize); // 현재 페이지에서 5개의 글을 보여주어야함
 		this.endRow = getEndRow(this.curPage, rowSize, this.totalRow);
+		
+		// 총 게시글 수를 한 페이지에 보여줄 게시글 수로 나누면, 필요한 총 페이지 수
 		this.totalPage = getTotalPage(totalRow, rowSize);
 		
 		// 사용자가 현재 속해있는 블록

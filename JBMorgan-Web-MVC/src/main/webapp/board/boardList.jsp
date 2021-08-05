@@ -55,7 +55,7 @@ td a:hover {
 table th {
 	background-color: rgba(39, 43, 44, 0.87);;
 	color: rgba(39, 43, 44, 0.87);
-	}
+}
 
 ul.pageNo {
   text-align: center; 
@@ -85,17 +85,6 @@ ul.pageNo li > .other.Page:hover{
 	color: rgba(255, 255, 255, 0.87);
 
 }
-
-
-
-
-}
-
-
-
-}
-
-
 
 </style>
 
@@ -185,14 +174,12 @@ ul.pageNo li > .other.Page:hover{
 		</div>
 	</div>
 	
-	<!-- 넘겨주는 정보가 페이지의 번호 => Controller로 보내야함  -->
-	<!-- 블록별 시작페이지 , 끝 페이지   -->
-	<!-- 페이징  -->
+	
 	<div style="text-align: center; ">
 		
 		<ul class="pageNo">
 			<c:choose>
-				<c:when test="${endPage eq 5 }">
+				<c:when test="${ endPage eq 5 }">
 					<button disabled="disabled">Prev</button>
 				</c:when>
 				<c:otherwise>
@@ -206,7 +193,7 @@ ul.pageNo li > .other.Page:hover{
 			<c:forEach begin="${ startPage }" end = "${ endPage }" var="i">
 					
 					<c:choose>
-						<c:when test="${curPage eq i }">
+						<c:when test="${ curPage eq i }">
 							<li>
 								<a class="present Page"  href="<%= request.getContextPath()%>/board/boardList.jb?page=${i}">[${i}]</a>
 							</li>
@@ -217,8 +204,6 @@ ul.pageNo li > .other.Page:hover{
 							</li>
 						</c:otherwise>
 					</c:choose>
-					
-					
 			</c:forEach>
 			
 			
